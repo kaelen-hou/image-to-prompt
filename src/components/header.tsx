@@ -1,7 +1,37 @@
+'use client';
+
 import Link from 'next/link'
+import { useRouter, usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
+import { useAuth } from '@/contexts/auth-context'
 
 export default function Header() {
+  const { user, signOut, loading } = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleSignIn = () => {
+    const redirectUrl = encodeURIComponent(pathname);
+    router.push(`/auth/login?redirectUrl=${redirectUrl}`);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
+  };
+
+  const handleGetStarted = () => {
+    if (user) {
+      router.push('/image-to-prompt');
+    } else {
+      const redirectUrl = encodeURIComponent('/image-to-prompt');
+      router.push(`/auth/login?redirectUrl=${redirectUrl}`);
+    }
+  };
+
   return (
     <header className="border-b">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -28,12 +58,38 @@ export default function Header() {
           </nav>
         </div>
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="sm">
-            Sign In
-          </Button>
-          <Button size="sm" className="bg-purple-600 hover:bg-purple-700">
-            Get Started
-          </Button>
+          {loading ? (
+            <div className="w-16 h-8 bg-gray-200 animate-pulse rounded"></div>
+          ) : user ? (
+            <>
+              <div className="flex items-center space-x-2">
+                <img
+                  src={user.photoURL || '/default-avatar.png'}
+                  alt={user.displayName || 'User'}
+                  className="w-8 h-8 rounded-full"
+                />
+                <span className="text-sm text-gray-700 hidden md:block">
+                  {user.displayName || user.email}
+                </span>
+              </div>
+              <Button variant="ghost" size="sm" onClick={handleSignOut}>
+                Sign Out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="ghost" size="sm" onClick={handleSignIn}>
+                Sign In
+              </Button>
+              <Button 
+                size="sm" 
+                className="bg-purple-600 hover:bg-purple-700"
+                onClick={handleGetStarted}
+              >
+                Get Started
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </header>
