@@ -2,7 +2,6 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/auth-context';
 import { toast } from 'sonner';
@@ -30,8 +29,8 @@ function LoginContent() {
       toast.success('登录成功！');
       // Popup mode - redirect immediately after success
       router.push(redirectUrl);
-    } catch (error: any) {
-      toast.error(error.message || '登录失败');
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : '登录失败');
       setLoading(false);
     }
   };

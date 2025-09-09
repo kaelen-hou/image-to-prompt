@@ -14,9 +14,6 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
-// Debug: Log config to verify environment variables are loaded
-console.log('🔥 Firebase initializing...');
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 

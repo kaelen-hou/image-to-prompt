@@ -15,7 +15,6 @@ interface AuthContextType {
   loading: boolean;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
-  isRedirectResult: boolean;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -31,33 +30,23 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isRedirectResult, setIsRedirectResult] = useState(false);
 
   useEffect(() => {
-    console.log('🔥 AuthProvider mounted (popup mode)');
-    
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log('🔥 Auth state changed:', user ? `logged in as ${user.email}` : 'logged out');
       setUser(user);
       setLoading(false);
     });
 
-    return () => {
-      console.log('🔥 AuthProvider cleanup');
-      unsubscribe();
-    };
+    return () => unsubscribe();
   }, []);
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    console.log('🔥 Starting Google sign in (popup mode)...');
-    
     try {
       const result = await signInWithPopup(auth, provider);
-      console.log('🔥 Popup login successful:', result.user.email);
       return result;
-    } catch (error: any) {
-      console.error('🔥 Error signing in with Google:', error);
+    } catch (error) {
+      console.error('Error signing in with Google:', error);
       throw error;
     }
   };
@@ -76,7 +65,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     loading,
     signInWithGoogle,
     signOut,
-    isRedirectResult,
   };
 
   return (
