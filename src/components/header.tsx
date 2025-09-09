@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { useRouter, usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/auth-context'
@@ -64,11 +63,10 @@ export default function Header() {
           ) : user ? (
             <>
               <div className="flex items-center space-x-2">
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={user.photoURL || '/default-avatar.png'}
                   alt={user.displayName || 'User'}
-                  width={32}
-                  height={32}
                   className="w-8 h-8 rounded-full"
                 />
                 <span className="text-sm text-gray-700 hidden md:block">
