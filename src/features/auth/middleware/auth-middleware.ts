@@ -27,8 +27,18 @@ export interface AuthenticatedRequest extends NextRequest {
   user: AuthenticatedUser;
 }
 
+interface JWTPayload {
+  user_id?: string;
+  uid?: string;
+  email?: string;
+  name?: string;
+  picture?: string;
+  exp?: number;
+  iss?: string;
+}
+
 // Simple JWT decode without verification (for development)
-function decodeJWT(token: string): any {
+function decodeJWT(token: string): JWTPayload | null {
   try {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -39,14 +49,14 @@ function decodeJWT(token: string): any {
         .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
         .join('')
     );
-    return JSON.parse(jsonPayload);
-  } catch (error) {
+    return JSON.parse(jsonPayload) as JWTPayload;
+  } catch {
     return null;
   }
 }
 
 // Validate JWT token structure and claims
-function validateJWTToken(decoded: any): AuthenticatedUser | null {
+function validateJWTToken(decoded: JWTPayload | null): AuthenticatedUser | null {
   if (!decoded || !decoded.user_id) {
     return null;
   }
@@ -115,7 +125,7 @@ async function verifyIdToken(idToken: string): Promise<AuthenticatedUser | null>
       // Admin SDK failed or timed out, return JWT result
       return jwtResult;
     }
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -155,7 +165,7 @@ export function withAuth<T extends unknown[]>(
       // Call the original handler
       return await handler(authenticatedRequest, ...args);
       
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'Authentication failed' },
         { status: 401 }
