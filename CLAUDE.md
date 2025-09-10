@@ -24,21 +24,59 @@ npm run lint
 
 ## Architecture
 
-### Page Structure
-- **Home page** (`/`): Marketing landing page with sections for tools, generator, enhancer, inspiration, and FAQ
-- **Image-to-prompt tool** (`/image-to-prompt`): Main application functionality for uploading images and generating prompts
+### Feature-Based Directory Structure
+
+The project follows a feature-based architecture organized as follows:
+
+```
+src/
+├── features/                    # Feature modules
+│   ├── landing/                # Landing page functionality
+│   │   ├── components/         # Hero, tools, generator, etc.
+│   │   └── index.ts           # Feature exports
+│   ├── image-to-prompt/       # Image-to-prompt functionality
+│   │   ├── components/        # Upload interface, gallery, etc.
+│   │   ├── services/          # Prompt generation logic
+│   │   ├── types/            # Feature-specific types
+│   │   └── index.ts
+│   ├── auth/                  # Authentication feature
+│   │   ├── components/        # Login components
+│   │   ├── context/          # AuthContext provider
+│   │   ├── services/         # Firebase auth config
+│   │   ├── middleware/       # Auth middleware
+│   │   ├── client.ts         # Client-side exports only
+│   │   ├── server.ts         # Server-side exports only
+│   │   └── index.ts
+│   ├── user/                  # User management
+│   │   ├── components/       # User dashboard
+│   │   ├── services/         # Usage tracking, subscriptions
+│   │   ├── types/           # User-related types
+│   │   └── index.ts
+│   └── storage/              # File storage feature
+│       ├── services/         # Upload validation, OSS
+│       ├── types/           # Storage-related types
+│       └── index.ts
+├── shared/                   # Shared code across features
+│   ├── components/          # Common UI components
+│   │   ├── ui/             # Radix UI components
+│   │   ├── header.tsx      # Global header
+│   │   └── footer.tsx      # Global footer
+│   ├── lib/                # Utility functions
+│   ├── hooks/              # Reusable React hooks
+│   └── types/              # Global type definitions
+└── app/                    # Next.js App Router
+    ├── (routes)/           # Route groups
+    └── api/                # API routes organized by feature
+```
 
 ### API Routes
-- **`/api/upload`**: Handles image uploads to Alibaba Cloud OSS with validation (max 10MB, image types only)
-- **`/api/generate-prompt`**: Integrates with Coze API workflows to generate prompts from uploaded images
-
-### Key Components
-- **Image upload system**: Drag-and-drop interface with client-side preview and server-side OSS storage
-- **Prompt generation**: Multiple prompt types (Stable Diffusion, etc.) with customizable user queries
-- **UI components**: Built with Radix UI primitives and styled with Tailwind CSS
+- **`/api/upload`**: File upload validation with user quota checking
+- **`/api/generate-prompt`**: AI prompt generation using Coze workflows
+- **`/api/usage`**: User usage tracking and limits
+- **`/api/subscription`**: Subscription management
 
 ### External Integrations
-- **Coze API**: Used for AI prompt generation via workflows
+- **Coze API**: AI prompt generation via workflows
 - **Alibaba Cloud OSS**: Image storage with CDN delivery via `cdn.lingowhale.com`
 - **Firebase**: Authentication, Firestore database, Storage, and Analytics
 

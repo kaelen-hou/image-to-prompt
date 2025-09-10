@@ -2,8 +2,8 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/auth-context';
+import { Button } from '@/shared/components/ui/button';
+import { useAuth } from '@/features/auth/client';
 import { toast } from 'sonner';
 
 function LoginContent() {

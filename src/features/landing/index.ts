@@ -1,0 +1,6 @@
+export { default as HeroSection } from './components/hero-section'
+export { default as ToolsSection } from './components/tools-section'
+export { default as GeneratorSection } from './components/generator-section'
+export { default as EnhancerSection } from './components/enhancer-section'
+export { default as InspirationSection } from './components/inspiration-section'
+export { default as FAQSection } from './components/faq-section'

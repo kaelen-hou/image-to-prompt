@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { withAuth, AuthenticatedRequest } from '@/lib/auth-middleware';
-import { incrementUserUsage } from '@/lib/user-usage';
+import { withAuth, AuthenticatedRequest } from '@/features/auth/server';
+import { incrementUserUsage } from '@/features/user';
+import { uploadFileToCoze, executeWorkflow } from '@/features/image-to-prompt';
 
 async function handleGeneratePrompt(request: AuthenticatedRequest) {
   try {
@@ -35,25 +36,7 @@ async function handleGeneratePrompt(request: AuthenticatedRequest) {
     // Upload file to Coze and get file_id
     let fileId: string;
     try {
-      // Upload file using FormData
-      const uploadFormData = new FormData();
-      uploadFormData.append('file', file);
-
-      const uploadResponse = await fetch(`${process.env.COZE_BASE_URL || 'https://api.coze.cn'}/v1/files/upload`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.COZE_API_TOKEN}`,
-        },
-        body: uploadFormData,
-      });
-
-      if (!uploadResponse.ok) {
-        const errorText = await uploadResponse.text();
-        throw new Error(`Upload failed: ${uploadResponse.status} ${errorText}`);
-      }
-
-      const uploadResult = await uploadResponse.json();
-      fileId = uploadResult.data.id;
+      fileId = await uploadFileToCoze(file);
     } catch (uploadError) {
       return NextResponse.json(
         { error: 'Failed to upload file to Coze', details: uploadError instanceof Error ? uploadError.message : 'Unknown error' },
@@ -61,38 +44,11 @@ async function handleGeneratePrompt(request: AuthenticatedRequest) {
       );
     }
 
-    // Call workflow API with file_id
-    const workflowParams = {
-      workflow_id: process.env.COZE_WORKFLOW_ID,
-      parameters: {
-        img: {
-          file_id: fileId
-        },
-        promptType,
-        userQuery
-      },
-    };
-
     // Execute workflow
-    const workflowResponse = await fetch(`${process.env.COZE_BASE_URL || 'https://api.coze.cn'}/v1/workflow/run`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.COZE_API_TOKEN}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(workflowParams),
-    });
-
-    if (!workflowResponse.ok) {
-      const errorText = await workflowResponse.text();
-      throw new Error(`Workflow failed: ${workflowResponse.status} ${errorText}`);
-    }
-
-    const res = await workflowResponse.json();
+    const res = await executeWorkflow(fileId, promptType, userQuery);
 
     // Increment user usage count only after successful API call
     await incrementUserUsage(request.user.uid);
-
 
     return NextResponse.json({
       success: true,

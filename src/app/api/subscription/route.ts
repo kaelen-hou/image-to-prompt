@@ -1,25 +1,15 @@
 import { NextResponse } from 'next/server';
-import { withAuth, AuthenticatedRequest } from '@/lib/auth-middleware';
-import { updateUserSubscription, SubscriptionPlan } from '@/lib/user-usage';
+import { withAuth, AuthenticatedRequest } from '@/features/auth/server';
+import { updateSubscription } from '@/features/user';
 
 async function handleUpdateSubscription(request: AuthenticatedRequest) {
   try {
     const body = await request.json();
     const { subscription } = body;
 
-    if (!subscription || !['free', 'basic', 'pro', 'premium'].includes(subscription)) {
-      return NextResponse.json(
-        { error: 'Invalid subscription plan' },
-        { status: 400 }
-      );
-    }
+    const result = await updateSubscription(request.user.uid, subscription);
 
-    await updateUserSubscription(request.user.uid, subscription as SubscriptionPlan);
-
-    return NextResponse.json({
-      success: true,
-      message: 'Subscription updated successfully'
-    });
+    return NextResponse.json(result);
 
   } catch (error) {
     console.error('Error updating subscription:', error)

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import { withAuth, AuthenticatedRequest } from '@/lib/auth-middleware';
-import { canUserUseService } from '@/lib/user-usage';
+import { withAuth, AuthenticatedRequest } from '@/features/auth/server';
+import { canUserUseService } from '@/features/user';
+import { processFileUpload } from '@/features/storage';
 
 async function handleUpload(request: AuthenticatedRequest) {
   try {
@@ -30,29 +31,9 @@ async function handleUpload(request: AuthenticatedRequest) {
       );
     }
 
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      return NextResponse.json(
-        { error: 'Invalid file type. Please upload an image.' },
-        { status: 400 }
-      );
-    }
+    const result = await processFileUpload(file);
 
-    // Validate file size (max 10MB)
-    if (file.size > 10 * 1024 * 1024) {
-      return NextResponse.json(
-        { error: 'File too large. Maximum size is 10MB.' },
-        { status: 400 }
-      );
-    }
-
-
-    // 为了简化，我们先返回成功，让客户端处理上传
-
-    return NextResponse.json({
-      success: true,
-      message: 'File validated, ready for processing'
-    });
+    return NextResponse.json(result);
 
   } catch (error) {
     console.error('Error uploading file to Firebase Storage:', error);
