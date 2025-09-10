@@ -2,45 +2,58 @@
 
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { toast } from 'sonner'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { Camera, Sparkles, AlertTriangle, Clipboard, Ban } from 'lucide-react'
+import { Camera, Sparkles, AlertTriangle, Clipboard, Ban, User } from 'lucide-react'
+import { useAuth } from '@/contexts/auth-context'
 
 export default function ImageToPromptHero() {
+  const { user, loading, signInWithGoogle } = useAuth()
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
-  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [isDragOver, setIsDragOver] = useState(false)
   const [isGenerating, setIsGenerating] = useState(false)
   const [generatedPrompt, setGeneratedPrompt] = useState('')
   const [negativePrompt, setNegativePrompt] = useState('')
   const [promptType, setPromptType] = useState('stableDiffusion')
   const [userQuery, setUserQuery] = useState('')
+  const [userUsage, setUserUsage] = useState<{
+    subscription: string
+    remainingUses: number
+    canUse: boolean
+    resetDate: string
+  } | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const uploadToServer = async (file: File) => {
-    const formData = new FormData()
-    formData.append('file', file)
-
+  const fetchUserUsage = useCallback(async () => {
+    if (!user) return
+    
     try {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
+      const token = await user.getIdToken()
+      const response = await fetch('/api/usage', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       })
-
-      if (!response.ok) {
-        throw new Error('Upload failed')
+      
+      if (response.ok) {
+        const data = await response.json()
+        setUserUsage(data.data)
       }
-
-      const data = await response.json()
-      return data.url
     } catch (error) {
-      console.error('Upload error:', error)
-      throw error
+      console.error('Failed to fetch usage:', error)
     }
-  }
+  }, [user])
+
+  // 获取用户使用信息
+  useEffect(() => {
+    if (user) {
+      fetchUserUsage()
+    }
+  }, [user, fetchUserUsage])
 
   const handleFileSelect = async (file: File) => {
     if (file && file.type.startsWith('image/')) {
@@ -52,24 +65,12 @@ export default function ImageToPromptHero() {
       }
       reader.readAsDataURL(file)
 
-      try {
-        toast.loading('Uploading image...', {
-          description: 'Please wait while we process your image.',
-        })
-        
-        const imageUrl = await uploadToServer(file)
-        setUploadedImageUrl(imageUrl)
-        
-        toast.dismiss()
-        toast.success('Image uploaded successfully!', {
-          description: 'Click Generate to create your AI prompt.',
-        })
-      } catch {
-        toast.dismiss()
-        toast.error('Upload failed', {
-          description: 'Please try uploading your image again.',
-        })
-      }
+      // 保存文件用于发送
+      setSelectedFile(file)
+      
+      toast.success('Image loaded successfully!', {
+        description: 'Click Generate to create your AI prompt.',
+      })
     } else {
       toast.error('Invalid file type', {
         description: 'Please upload a valid image file (JPG, PNG, WebP, etc.)',
@@ -108,9 +109,16 @@ export default function ImageToPromptHero() {
   }
 
   const handleGenerate = async () => {
-    if (!uploadedImageUrl) {
-      toast.error('Please upload an image first', {
-        description: 'You need to upload an image before generating a prompt.',
+    if (!user) {
+      toast.error('Please sign in first', {
+        description: 'You need to sign in to generate prompts.',
+      })
+      return
+    }
+
+    if (!selectedFile) {
+      toast.error('Please select an image first', {
+        description: 'You need to select an image before generating a prompt.',
       })
       return
     }
@@ -121,25 +129,29 @@ export default function ImageToPromptHero() {
     })
     
     try {
+      const token = await user.getIdToken()
+      const formData = new FormData()
+      formData.append('file', selectedFile)
+      formData.append('promptType', promptType)
+      formData.append('userQuery', userQuery || '描述下这张图片')
+
       const response = await fetch('/api/generate-prompt', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({
-          imageUrl: uploadedImageUrl,
-          promptType: promptType,
-          userQuery: userQuery || '描述下这张图片'
-        }),
+        body: formData,
       })
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }))
         console.error('API Error:', response.status, errorData)
-        throw new Error(`Failed to generate prompt: ${response.status} - ${errorData.error || 'Unknown error'}`)
+        throw new Error(errorData.error || 'Failed to generate prompt')
       }
 
       const result = await response.json()
+      // 刷新使用信息
+      await fetchUserUsage()
       
       // Parse the Coze API response
       let prompt = "Generated prompt from your image"
@@ -230,15 +242,70 @@ export default function ImageToPromptHero() {
                     accept="image/*"
                     className="hidden"
                   />
-                  <div 
-                    className={`border-2 border-dashed rounded-lg p-8 text-center bg-white transition-colors cursor-pointer ${
-                      isDragOver ? 'border-purple-500 bg-purple-50' : 'border-purple-300 hover:border-purple-400'
-                    }`}
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    onDrop={handleDrop}
-                    onClick={handleButtonClick}
-                  >
+                  {!user ? (
+                    <div className="text-center py-12 space-y-4">
+                      <Ban className="w-16 h-16 text-gray-400 mx-auto" />
+                      <div>
+                        <p className="text-lg font-medium text-gray-700 mb-2">
+                          Sign in required
+                        </p>
+                        <p className="text-sm text-gray-500 mb-4">
+                          Please sign in to upload images and generate prompts
+                        </p>
+                        <Button onClick={signInWithGoogle} className="bg-blue-600 hover:bg-blue-700">
+                          <User className="w-4 h-4 mr-2" />
+                          Sign in with Google
+                        </Button>
+                      </div>
+                    </div>
+                  ) : userUsage && (
+                    <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-800">
+                      <div className="flex items-center justify-between">
+                        <span>
+                          Plan: <span className="capitalize font-medium">{userUsage.subscription}</span> | 
+                          Remaining: <span className="font-medium text-blue-600">{userUsage.remainingUses}</span> uses
+                          {userUsage.subscription !== 'premium' && (
+                            <span className="text-gray-500"> (Resets: {new Date(userUsage.resetDate).toLocaleDateString()})</span>
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {user && (
+                    <>
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleFileInput}
+                        accept="image/*"
+                        className="hidden"
+                        disabled={!user || (userUsage?.canUse === false)}
+                      />
+                      {userUsage?.canUse === false ? (
+                        <div className="text-center py-12 space-y-4">
+                          <AlertTriangle className="w-16 h-16 text-orange-500 mx-auto" />
+                          <div>
+                            <p className="text-lg font-medium text-gray-700">
+                              Usage limit reached
+                            </p>
+                            <p className="text-sm text-gray-500 mt-2">
+                              Your monthly limit has been reached. Usage resets on {new Date(userUsage.resetDate).toLocaleDateString()}
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div 
+                          className={`border-2 border-dashed rounded-lg p-8 text-center bg-white transition-colors ${
+                            (!user || userUsage?.canUse === false) ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'
+                          } ${
+                            isDragOver ? 'border-purple-500 bg-purple-50' : 'border-purple-300 hover:border-purple-400'
+                          }`}
+                          onDragOver={user && userUsage?.canUse !== false ? handleDragOver : undefined}
+                          onDragLeave={user && userUsage?.canUse !== false ? handleDragLeave : undefined}
+                          onDrop={user && userUsage?.canUse !== false ? handleDrop : undefined}
+                          onClick={user && userUsage?.canUse !== false ? handleButtonClick : undefined}
+                        >
                     <div className="space-y-4">
                       <Camera className="w-16 h-16 text-purple-500 mx-auto" />
                       <div>
@@ -249,16 +316,18 @@ export default function ImageToPromptHero() {
                           or click to browse files
                         </p>
                       </div>
-                      <Button 
-                        type="button"
-                        className="bg-purple-600 hover:bg-purple-700"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleButtonClick()
-                        }}
-                      >
-                        Choose Image
-                      </Button>
+                        <Button 
+                          type="button"
+                          className="bg-purple-600 hover:bg-purple-700"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleButtonClick()
+                          }}
+                          disabled={!user || (userUsage?.canUse === false)}
+                        >
+                          {!user ? 'Sign In Required' :
+                           (userUsage?.canUse === false) ? 'Limit Reached' : 'Choose Image'}
+                        </Button>
                     </div>
                   </div>
                   
@@ -433,10 +502,12 @@ export default function ImageToPromptHero() {
                       </Button>
                       <Button 
                         className="flex-1 bg-purple-600 hover:bg-purple-700"
-                        disabled={!uploadedImageUrl || isGenerating}
+                        disabled={!selectedFile || isGenerating || !user || userUsage?.canUse === false}
                         onClick={handleGenerate}
                       >
-                        {isGenerating ? 'Generating...' : 'Generate'}
+                        {isGenerating ? 'Generating...' :
+                         !user ? 'Sign In Required' :
+                         (userUsage?.canUse === false) ? 'Limit Reached' : 'Generate'}
                       </Button>
                     </div>
                   </div>

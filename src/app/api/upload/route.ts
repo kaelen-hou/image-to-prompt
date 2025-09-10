@@ -1,8 +1,25 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { uploadFileToOSS } from '@/lib/oss';
+import { NextResponse } from 'next/server';
+import { withAuth, AuthenticatedRequest } from '@/lib/auth-middleware';
+import { canUserUseService } from '@/lib/user-usage';
 
-export async function POST(request: NextRequest) {
+async function handleUpload(request: AuthenticatedRequest) {
   try {
+    
+    // 检查用户使用次数限制
+    const usageCheck = await canUserUseService(request.user.uid, request.user.email);
+    
+    if (!usageCheck.canUse) {
+      return NextResponse.json(
+        { 
+          error: `You have reached your monthly limit. Usage resets on ${usageCheck.resetDate.toDateString()}.`,
+          subscription: usageCheck.subscription,
+          remainingUses: usageCheck.remainingUses,
+          resetDate: usageCheck.resetDate.toISOString()
+        },
+        { status: 403 }
+      );
+    }
+
     const data = await request.formData();
     const file: File | null = data.get('file') as unknown as File;
 
@@ -29,30 +46,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check OSS configuration
-    if (!process.env.OSS_ACCESS_KEY_ID || !process.env.OSS_ACCESS_KEY_SECRET || !process.env.OSS_BUCKET) {
-      return NextResponse.json(
-        { error: 'OSS configuration is missing' },
-        { status: 500 }
-      );
-    }
 
-
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    // Upload to OSS
-    const ossUrl = await uploadFileToOSS(buffer, file.name, file.type);
-
+    // 为了简化，我们先返回成功，让客户端处理上传
 
     return NextResponse.json({
       success: true,
-      url: ossUrl,
-      filename: file.name
+      message: 'File validated, ready for processing'
     });
 
   } catch (error) {
-    console.error('Error uploading file to OSS:', error);
+    console.error('Error uploading file to Firebase Storage:', error);
     return NextResponse.json(
       { 
         error: 'Failed to upload file',
@@ -62,3 +65,5 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+export const POST = withAuth(handleUpload);
