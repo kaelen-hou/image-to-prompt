@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { adminDb } from '@/lib/firebase-admin';
 import { initializeApp, getApps } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
 
 // Firebase client config for token verification
 const firebaseConfig = {
@@ -50,7 +48,7 @@ async function verifyIdToken(idToken: string): Promise<AuthenticatedUser | null>
   }
 }
 
-export function withAuth<T extends any[]>(
+export function withAuth<T extends unknown[]>(
   handler: (request: AuthenticatedRequest, ...args: T) => Promise<NextResponse>
 ) {
   return async (request: NextRequest, ...args: T): Promise<NextResponse> => {

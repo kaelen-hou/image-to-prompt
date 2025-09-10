@@ -2,7 +2,7 @@ import { storage } from './firebase';
 import { ref, uploadBytes, getDownloadURL, UploadResult } from 'firebase/storage';
 
 // Upload with retry logic
-async function uploadWithRetry(storageRef: any, fileData: ArrayBuffer, retries = 3): Promise<UploadResult> {
+async function uploadWithRetry(storageRef: ReturnType<typeof ref>, fileData: ArrayBuffer, retries = 3): Promise<UploadResult> {
   for (let i = 0; i < retries; i++) {
     try {
       
@@ -19,8 +19,7 @@ async function uploadWithRetry(storageRef: any, fileData: ArrayBuffer, retries =
 
 export async function uploadFileToStorage(
   file: ArrayBuffer, 
-  fileName: string, 
-  contentType: string
+  fileName: string
 ): Promise<string> {
   try {
     

@@ -6,7 +6,7 @@ async function handleUpload(request: AuthenticatedRequest) {
   try {
     
     // 检查用户使用次数限制
-    const usageCheck = await canUserUseService(request.user.uid, request.user.email);
+    const usageCheck = await canUserUseService(request.user.uid, request.user.email!);
     
     if (!usageCheck.canUse) {
       return NextResponse.json(
