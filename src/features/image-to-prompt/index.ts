@@ -1,5 +1,7 @@
 // Components
 export { default as ImageToPromptHero } from './components/image-to-prompt-hero'
+export { default as HeroOptimized } from './components/hero-optimized'
+export { HeroShell } from './components/hero-shell'
 export { default as ImageGallery } from './components/image-gallery'
 export { default as ImageToPromptFAQ } from './components/image-to-prompt-faq'
 export { default as TestimonialsSection } from './components/testimonials-section'

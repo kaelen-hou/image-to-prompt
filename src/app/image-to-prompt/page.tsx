@@ -1,11 +1,26 @@
 import type { Metadata } from "next"
 import { Header, Footer } from '@/shared'
 import { ToolStructuredData } from '@/shared/components/seo'
-import { ImageToPromptHero } from '@/features/image-to-prompt'
 import dynamic from 'next/dynamic'
 
+// Critical above-the-fold content - load immediately
+const HeroOptimized = dynamic(() => 
+  import('@/features/image-to-prompt/components/hero-optimized'), {
+  loading: () => (
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-blue-50 to-indigo-50 py-8">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="text-center mb-8">
+          <div className="h-12 bg-gray-200 rounded w-96 mx-auto mb-4 animate-pulse"></div>
+          <div className="h-6 bg-gray-200 rounded w-128 mx-auto animate-pulse"></div>
+        </div>
+        <div className="h-96 bg-gray-200 rounded-2xl animate-pulse"></div>
+      </div>
+    </div>
+  )
+})
+
 // Lazy load below-the-fold components with better loading states
-const ImageGallery = dynamic(() => 
+const ImageGallery = dynamic(() =>
   import('@/features/image-to-prompt').then(mod => ({ default: mod.ImageGallery })), {
   loading: () => (
     <div className="py-16 bg-gray-50">
@@ -16,7 +31,7 @@ const ImageGallery = dynamic(() =>
   )
 })
 
-const TestimonialsSection = dynamic(() => 
+const TestimonialsSection = dynamic(() =>
   import('@/features/image-to-prompt').then(mod => ({ default: mod.TestimonialsSection })), {
   loading: () => (
     <div className="py-16 bg-white">
@@ -27,7 +42,7 @@ const TestimonialsSection = dynamic(() =>
   )
 })
 
-const HowItWorksSection = dynamic(() => 
+const HowItWorksSection = dynamic(() =>
   import('@/features/image-to-prompt').then(mod => ({ default: mod.HowItWorksSection })), {
   loading: () => (
     <div className="py-16 bg-gray-50">
@@ -38,7 +53,7 @@ const HowItWorksSection = dynamic(() =>
   )
 })
 
-const ImageToPromptFAQ = dynamic(() => 
+const ImageToPromptFAQ = dynamic(() =>
   import('@/features/image-to-prompt').then(mod => ({ default: mod.ImageToPromptFAQ })), {
   loading: () => (
     <div className="py-16 bg-white">
@@ -82,7 +97,7 @@ export default function ImageToPromptPage() {
     <div className="min-h-screen">
       <ToolStructuredData />
       <Header />
-      <ImageToPromptHero />
+      <HeroOptimized />
       <ImageGallery />
       <TestimonialsSection />
       <HowItWorksSection />
