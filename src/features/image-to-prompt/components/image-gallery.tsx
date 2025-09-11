@@ -46,43 +46,42 @@ export default function ImageGallery() {
   ]
 
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold text-gray-900 mb-3">
             Highly Accurate Image to Prompt Generation
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            See how our AI analyzes images and creates detailed, professional prompts 
-            that capture every nuance of style, composition, and artistic elements.
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            See how our AI analyzes images and creates detailed, professional prompts.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {examples.map((example, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-4 flex items-center justify-center text-6xl">
+              <CardContent className="p-4">
+                <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg mb-3 flex items-center justify-center text-4xl">
                   {example.image}
                 </div>
-                <div className="bg-gray-50 p-4 rounded-lg mb-4">
-                  <p className="text-sm text-gray-700 leading-relaxed">
+                <div className="bg-gray-50 p-3 rounded-lg mb-3">
+                  <p className="text-xs text-gray-700 leading-relaxed line-clamp-4">
                     {example.prompt}
                   </p>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-1">
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="flex-1"
+                    className="flex-1 text-xs"
                     onClick={() => handleCopyPrompt(example.prompt)}
                   >
                     Copy
                   </Button>
-                  <Button variant="outline" size="sm" className="flex-1">
+                  <Button variant="outline" size="sm" className="flex-1 text-xs">
                     Edit
                   </Button>
-                  <Button size="sm" className="flex-1 bg-purple-600 hover:bg-purple-700">
+                  <Button size="sm" className="flex-1 bg-purple-600 hover:bg-purple-700 text-xs">
                     Use
                   </Button>
                 </div>
@@ -91,8 +90,8 @@ export default function ImageGallery() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <Button variant="outline" size="lg">
+        <div className="text-center mt-8">
+          <Button variant="outline">
             View More Examples
           </Button>
         </div>

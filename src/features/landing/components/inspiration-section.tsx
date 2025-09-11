@@ -1,5 +1,8 @@
+'use client'
+
 import { Card, CardContent } from '@/shared/components/ui/card'
 import { Button } from '@/shared/components/ui/button'
+import { toast } from 'sonner'
 
 export default function InspirationSection() {
   const examples = [
@@ -35,6 +38,15 @@ export default function InspirationSection() {
     }
   ]
 
+  const handleUsePrompt = async (prompt: string) => {
+    try {
+      await navigator.clipboard.writeText(prompt)
+      toast.success('Prompt copied to clipboard!')
+    } catch (error) {
+      toast.error('Failed to copy prompt')
+    }
+  }
+
   return (
     <section id="inspiration" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -57,7 +69,12 @@ export default function InspirationSection() {
                 <p className="text-sm text-gray-600 mb-4 line-clamp-3">
                   {example.prompt}
                 </p>
-                <Button variant="outline" size="sm" className="w-full">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="w-full"
+                  onClick={() => handleUsePrompt(example.prompt)}
+                >
                   Use This Prompt
                 </Button>
               </CardContent>
