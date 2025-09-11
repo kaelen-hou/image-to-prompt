@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/shared/components/ui/sonner";
 import { AuthProvider } from "@/features/auth/client";
+import { InstallPrompt } from "@/shared/components/pwa";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -93,6 +94,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           {children}
+          <InstallPrompt />
           <Toaster 
             position="top-center"
             expand={false}

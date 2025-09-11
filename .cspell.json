@@ -19,7 +19,10 @@
     "lucide",
     "sonner",
     "lingowhale",
-    "cdn"
+    "cdn",
+    "turbopack",
+    "nosniff",
+    "webmanifest"
   ],
   "ignorePaths": [
     "node_modules",
