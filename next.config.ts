@@ -17,17 +17,6 @@ const withPWA = require('next-pwa')({
       }
     },
     {
-      urlPattern: /^https:\/\/cdn\.lingowhale\.com\/.*/i,
-      handler: 'CacheFirst', 
-      options: {
-        cacheName: 'cdn-images',
-        expiration: {
-          maxEntries: 100,
-          maxAgeSeconds: 30 * 24 * 60 * 60 // 30 days
-        }
-      }
-    },
-    {
       urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|avif|ico)$/i,
       handler: 'CacheFirst',
       options: {
@@ -80,7 +69,7 @@ const nextConfig: NextConfig = {
     minimumCacheTTL: 31536000, // 1 year
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    domains: ['cdn.lingowhale.com'], // Your CDN domain
+    domains: [], // External image domains
   },
   
   // Compression and performance

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an image-to-prompt web application built with Next.js 15 that allows users to upload images and generate AI prompts for various image generation models. The app integrates with Coze API for prompt generation and Alibaba Cloud OSS for image storage.
+This is an image-to-prompt web application built with Next.js 15 that allows users to upload images and generate AI prompts for various image generation models. The app integrates with Coze API for prompt generation.
 
 ## Development Commands
 
@@ -77,14 +77,12 @@ src/
 
 ### External Integrations
 - **Coze API**: AI prompt generation via workflows
-- **Alibaba Cloud OSS**: Image storage with CDN delivery via `cdn.lingowhale.com`
 - **Firebase**: Authentication, Firestore database, Storage, and Analytics
 
 ### Environment Variables Required
 - `COZE_API_TOKEN`: API token for Coze service
 - `COZE_WORKFLOW_ID`: Workflow ID for prompt generation
 - `COZE_BASE_URL`: Base URL for Coze API (defaults to https://api.coze.cn)
-- `OSS_REGION`, `OSS_ACCESS_KEY_ID`, `OSS_ACCESS_KEY_SECRET`, `OSS_BUCKET`: Alibaba Cloud OSS configuration
 - `NEXT_PUBLIC_FIREBASE_API_KEY`: Firebase API key
 - `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`: Firebase auth domain
 - `NEXT_PUBLIC_FIREBASE_PROJECT_ID`: Firebase project ID
@@ -99,5 +97,4 @@ src/
 - Tailwind CSS v4
 - Radix UI components
 - Coze API for AI integration
-- Alibaba Cloud OSS for file storage
 - Firebase for authentication and database

@@ -19,12 +19,6 @@ export const EnvSchema = z.object({
   COZE_API_TOKEN: z.string().min(1),
   COZE_BASE_URL: z.string().url().default('https://api.coze.cn'),
   COZE_WORKFLOW_ID: z.string().min(1),
-  
-  // OSS
-  OSS_REGION: z.string().optional(),
-  OSS_ACCESS_KEY_ID: z.string().optional(),
-  OSS_ACCESS_KEY_SECRET: z.string().optional(),
-  OSS_BUCKET: z.string().optional(),
 })
 
 // File validation
