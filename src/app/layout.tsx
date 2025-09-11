@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/shared/components/ui/sonner";
 import { AuthProvider } from "@/features/auth/client";
 import { InstallPrompt } from "@/shared/components/pwa";
+import { WebVitals } from "@/shared/components/analytics/web-vitals";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -90,6 +91,7 @@ export default function RootLayout({
         <AuthProvider>
           {children}
           <InstallPrompt />
+          <WebVitals />
           <Toaster
             position="top-center"
             expand={false}

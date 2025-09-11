@@ -1,4 +1,4 @@
-import { CheckCircle, Lightbulb, Target, BookOpen, Settings, Palette, Image } from 'lucide-react'
+import { CheckCircle, Lightbulb, Target, BookOpen, Settings, Palette, Image as ImageIcon } from 'lucide-react'
 import { HowToStructuredData, ArticleStructuredData } from '@/shared/components/seo'
 import { Breadcrumbs, BreadcrumbStructuredData, RelatedLinks, CTASection } from '@/shared/components/navigation'
 import type { Metadata } from 'next'
@@ -7,9 +7,9 @@ export const metadata: Metadata = {
   title: 'Complete Stable Diffusion Guide: Master AI Art Generation | GetPrompts',
   description: 'Learn everything about Stable Diffusion - from basic prompting to advanced techniques, models, settings, and workflows for creating stunning AI art.',
   keywords: [
-    'Stable Diffusion guide', 
-    'Stable Diffusion prompts', 
-    'AI art generation', 
+    'Stable Diffusion guide',
+    'Stable Diffusion prompts',
+    'AI art generation',
     'Stable Diffusion tutorial',
     'SD models',
     'negative prompts',
@@ -91,14 +91,14 @@ export default function StableDiffusionGuidePage() {
         image="https://getprompts.me/og-image.jpg"
         keywords={[
           "Stable Diffusion guide",
-          "Stable Diffusion prompts", 
+          "Stable Diffusion prompts",
           "AI art generation",
           "SD models",
           "negative prompts",
           "CFG scale"
         ]}
       />
-      
+
       <HowToStructuredData
         name="How to Create Art with Stable Diffusion"
         description="Complete step-by-step guide to generating stunning AI art using Stable Diffusion, from setup to advanced techniques."
@@ -106,16 +106,16 @@ export default function StableDiffusionGuidePage() {
         estimatedCost="$0-20"
         steps={howToSteps}
       />
-      
+
       <BreadcrumbStructuredData items={breadcrumbItems} />
-      
+
       <Breadcrumbs items={breadcrumbItems} />
 
       {/* Hero Section */}
       <div className="mb-12">
         <div className="flex items-center mb-4">
           <div className="bg-purple-100 p-3 rounded-lg mr-4">
-            <Image className="w-6 h-6 text-purple-600" />
+            <ImageIcon className="w-6 h-6 text-purple-600" />
           </div>
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
@@ -126,7 +126,7 @@ export default function StableDiffusionGuidePage() {
             </p>
           </div>
         </div>
-        
+
         <div className="flex items-center text-sm text-gray-500 space-x-4 mb-8">
           <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">Beginner to Expert</span>
           <span>25 min read</span>
@@ -181,10 +181,10 @@ export default function StableDiffusionGuidePage() {
             <Target className="w-7 h-7 text-purple-600 mr-3" />
             1. What is Stable Diffusion?
           </h2>
-          
+
           <p className="text-gray-700 leading-relaxed mb-6">
-            Stable Diffusion is an open-source, latent text-to-image diffusion model developed by Stability AI. 
-            Unlike closed-source alternatives, it runs locally on your hardware, giving you complete control 
+            Stable Diffusion is an open-source, latent text-to-image diffusion model developed by Stability AI.
+            Unlike closed-source alternatives, it runs locally on your hardware, giving you complete control
             over the generation process, privacy, and customization options.
           </p>
 
@@ -204,7 +204,7 @@ export default function StableDiffusionGuidePage() {
           </div>
 
           <h3 className="text-2xl font-semibold text-gray-900 mb-4">Key Advantages Over Other AI Art Tools</h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div className="bg-white border border-gray-200 rounded-lg p-6">
               <h4 className="text-lg font-semibold text-gray-900 mb-3">Complete Control</h4>
@@ -239,9 +239,9 @@ export default function StableDiffusionGuidePage() {
             <Settings className="w-7 h-7 text-purple-600 mr-3" />
             2. Setup & Installation Options
           </h2>
-          
+
           <p className="text-gray-700 leading-relaxed mb-6">
-            There are several ways to run Stable Diffusion, from local installations to cloud-based solutions. 
+            There are several ways to run Stable Diffusion, from local installations to cloud-based solutions.
             Choose based on your hardware, technical expertise, and budget.
           </p>
 
@@ -300,9 +300,9 @@ export default function StableDiffusionGuidePage() {
         {/* Section 3: Models */}
         <section id="models" className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">3. Understanding Models & Checkpoints</h2>
-          
+
           <p className="text-gray-700 leading-relaxed mb-6">
-            Models are the foundation of Stable Diffusion. Different models excel at different styles and subjects. 
+            Models are the foundation of Stable Diffusion. Different models excel at different styles and subjects.
             Understanding how to choose and use them is crucial for getting the results you want.
           </p>
 
@@ -327,7 +327,7 @@ export default function StableDiffusionGuidePage() {
                 </div>
               </div>
             </div>
-            
+
             <div>
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Enhancement Add-ons</h3>
               <div className="space-y-4">
@@ -357,9 +357,9 @@ export default function StableDiffusionGuidePage() {
             <Palette className="w-7 h-7 text-purple-600 mr-3" />
             4. Advanced Prompting Techniques
           </h2>
-          
+
           <p className="text-gray-700 leading-relaxed mb-6">
-            Stable Diffusion offers unique prompting features that give you precise control over generation. 
+            Stable Diffusion offers unique prompting features that give you precise control over generation.
             Master these techniques to create exactly what you envision.
           </p>
 
@@ -367,13 +367,13 @@ export default function StableDiffusionGuidePage() {
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Prompt Structure for Stable Diffusion</h3>
             <div className="bg-gray-50 rounded p-4 mb-4">
               <code className="text-sm">
-                (masterpiece, best quality), beautiful woman, (flowing red dress), dancing in moonlight, 
-                forest clearing, (ethereal atmosphere), soft lighting, detailed face, photorealistic, 
+                (masterpiece, best quality), beautiful woman, (flowing red dress), dancing in moonlight,
+                forest clearing, (ethereal atmosphere), soft lighting, detailed face, photorealistic,
                 8k resolution, highly detailed
               </code>
             </div>
             <div className="text-sm text-gray-600">
-              <strong>Note:</strong> Parentheses () increase attention weight, while [brackets] decrease it. 
+              <strong>Note:</strong> Parentheses () increase attention weight, while [brackets] decrease it.
               Use (word:1.2) for precise weight control.
             </div>
           </div>
@@ -405,12 +405,12 @@ export default function StableDiffusionGuidePage() {
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Negative Prompt Essentials</h3>
               <div className="bg-red-50 rounded p-4 mb-4">
                 <code className="text-sm text-red-800">
-                  (worst quality, low quality), blurry, out of focus, bad anatomy, 
+                  (worst quality, low quality), blurry, out of focus, bad anatomy,
                   extra limbs, deformed hands, watermark, signature, text
                 </code>
               </div>
               <p className="text-sm text-gray-600">
-                Negative prompts tell Stable Diffusion what to avoid. Always include quality 
+                Negative prompts tell Stable Diffusion what to avoid. Always include quality
                 negatives and specific issues you want to prevent.
               </p>
             </div>
@@ -444,9 +444,9 @@ export default function StableDiffusionGuidePage() {
         {/* Section 5: Settings */}
         <section id="settings" className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">5. Essential Settings & Parameters</h2>
-          
+
           <p className="text-gray-700 leading-relaxed mb-6">
-            Understanding Stable Diffusion&apos;s parameters is crucial for consistent, high-quality results. 
+            Understanding Stable Diffusion&apos;s parameters is crucial for consistent, high-quality results.
             Each setting affects the generation process in important ways.
           </p>
 
@@ -491,7 +491,7 @@ export default function StableDiffusionGuidePage() {
 
             <div className="bg-gray-50 rounded-lg p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Recommended Settings by Use Case</h3>
-              
+
               <div className="space-y-6">
                 <div>
                   <h4 className="font-medium text-gray-900 mb-2">Photorealistic Portraits</h4>
@@ -530,9 +530,9 @@ export default function StableDiffusionGuidePage() {
         {/* Section 6: Workflows */}
         <section id="workflows" className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">6. Advanced Workflows & Techniques</h2>
-          
+
           <p className="text-gray-700 leading-relaxed mb-6">
-            Beyond basic text-to-image generation, Stable Diffusion offers powerful workflows for 
+            Beyond basic text-to-image generation, Stable Diffusion offers powerful workflows for
             professional-quality results and precise control over your creations.
           </p>
 
@@ -591,7 +591,7 @@ export default function StableDiffusionGuidePage() {
         {/* Section 7: Troubleshooting */}
         <section id="troubleshooting" className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">7. Troubleshooting & Optimization</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Common Issues & Solutions</h3>
@@ -679,7 +679,7 @@ export default function StableDiffusionGuidePage() {
         }}
       />
 
-      <RelatedLinks 
+      <RelatedLinks
         title="Related Guides"
         items={relatedGuides}
       />

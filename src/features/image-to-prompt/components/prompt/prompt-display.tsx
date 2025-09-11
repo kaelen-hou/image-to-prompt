@@ -5,8 +5,7 @@ import { useState } from 'react'
 import { Clipboard, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
 import { clientLogger } from '@/lib/logger/client'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+import { DynamicMarkdown } from '@/shared/components/dynamic-markdown'
 
 interface PromptDisplayProps {
   generatedPrompt: string
@@ -123,13 +122,9 @@ export function PromptDisplay({
             </Button>
           </div>
           <div className="bg-gray-50 rounded-xl p-4">
-            <div className="prose prose-sm max-w-none">
-              <div className="text-gray-800 whitespace-pre-wrap leading-relaxed">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {generatedPrompt}
-                </ReactMarkdown>
-              </div>
-            </div>
+            <DynamicMarkdown>
+              {generatedPrompt}
+            </DynamicMarkdown>
           </div>
         </div>
       </div>
@@ -162,13 +157,9 @@ export function PromptDisplay({
               </Button>
             </div>
             <div className="bg-red-50 rounded-xl p-4">
-              <div className="prose prose-sm max-w-none">
-                <div className="text-gray-800 whitespace-pre-wrap leading-relaxed">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {negativePrompt}
-                  </ReactMarkdown>
-                </div>
-              </div>
+              <DynamicMarkdown>
+                {negativePrompt}
+              </DynamicMarkdown>
             </div>
           </div>
         </div>

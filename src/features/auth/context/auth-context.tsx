@@ -1,13 +1,7 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import { 
-  User, 
-  onAuthStateChanged, 
-  signInWithPopup,
-  GoogleAuthProvider, 
-  signOut as firebaseSignOut
-} from 'firebase/auth';
+import { createContext, useContext, useEffect, useState, useMemo, useCallback } from 'react';
+import { User } from 'firebase/auth';
 import { auth } from '../services/firebase';
 import { clientLogger } from '@/lib/logger/client';
 
@@ -33,27 +27,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
+    let unsubscribe: (() => void) | undefined;
+    
+    // Dynamically import auth functions to reduce initial bundle
+    import('firebase/auth').then(({ onAuthStateChanged }) => {
+      unsubscribe = onAuthStateChanged(auth, (user) => {
+        setUser(user);
+        setLoading(false);
+      });
     });
 
-    return () => unsubscribe();
+    return () => unsubscribe?.();
   }, []);
 
-  const signInWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
+  const signInWithGoogle = useCallback(async () => {
     try {
+      const { signInWithPopup, GoogleAuthProvider } = await import('firebase/auth');
+      const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
     } catch (error) {
       clientLogger.componentLog('error', 'Google sign-in failed', 'AuthContext', {}, 
         error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
-  };
+  }, []);
 
-  const signOut = async () => {
+  const signOut = useCallback(async () => {
     try {
+      const { signOut: firebaseSignOut } = await import('firebase/auth');
       await firebaseSignOut(auth);
     } catch (error) {
       clientLogger.componentLog('error', 'Sign out failed', 'AuthContext', {
@@ -61,14 +62,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
-  };
+  }, [user?.uid]);
 
-  const value = {
+  const value = useMemo(() => ({
     user,
     loading,
     signInWithGoogle,
     signOut,
-  };
+  }), [user, loading, signInWithGoogle, signOut]);
 
   return (
     <AuthContext.Provider value={value}>

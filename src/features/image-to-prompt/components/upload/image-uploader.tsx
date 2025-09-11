@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/shared/components/ui/button'
-import { useState, useRef } from 'react'
+import { useState, useRef, memo, useCallback } from 'react'
 import Image from 'next/image'
 import { Camera, Ban } from 'lucide-react'
 import { toast } from 'sonner'
@@ -20,7 +20,7 @@ interface ImageUploaderProps {
   } | null
 }
 
-export function ImageUploader({ 
+function ImageUploaderComponent({ 
   selectedImage, 
   selectedFile, 
   onImageSelect, 
@@ -30,7 +30,7 @@ export function ImageUploader({
   const [isDragOver, setIsDragOver] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleFileSelect = async (file: File) => {
+  const handleFileSelect = useCallback(async (file: File) => {
     if (!file.type.startsWith('image/')) {
       toast.error('Please select a valid image file')
       return
@@ -51,9 +51,9 @@ export function ImageUploader({
         fileSize: file.size
       }, error instanceof Error ? error : new Error(String(error)))
     }
-  }
+  }, [onImageSelect])
 
-  const handleDrop = (e: React.DragEvent) => {
+  const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     setIsDragOver(false)
 
@@ -65,31 +65,31 @@ export function ImageUploader({
     if (file) {
       handleFileSelect(file)
     }
-  }
+  }, [disabled, handleFileSelect])
 
-  const handleDragOver = (e: React.DragEvent) => {
+  const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     if (!disabled) {
       setIsDragOver(true)
     }
-  }
+  }, [disabled])
 
-  const handleDragLeave = (e: React.DragEvent) => {
+  const handleDragLeave = useCallback((e: React.DragEvent) => {
     e.preventDefault()
     setIsDragOver(false)
-  }
+  }, [])
 
-  const handleButtonClick = () => {
+  const handleButtonClick = useCallback(() => {
     if (disabled) return
     fileInputRef.current?.click()
-  }
+  }, [disabled])
 
-  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
       handleFileSelect(file)
     }
-  }
+  }, [handleFileSelect])
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
@@ -209,3 +209,5 @@ export function ImageUploader({
     </div>
   )
 }
+
+export const ImageUploader = memo(ImageUploaderComponent)

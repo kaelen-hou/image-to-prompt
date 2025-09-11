@@ -1,8 +1,8 @@
 // Components
 export { default as Header } from './components/header'
 export { default as Footer } from './components/footer'
-export { OptimizedImage } from './components/OptimizedImage'
-export { LazyWrapper } from './components/LazyWrapper'
+export { OptimizedImage } from './components/optimized-image'
+export { LazyWrapper } from './components/lazy-wrapper'
 export * from './components/skeletons'
 
 // UI Components

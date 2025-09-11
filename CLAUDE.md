@@ -98,3 +98,4 @@ src/
 - Radix UI components
 - Coze API for AI integration
 - Firebase for authentication and database
+- 项目目录 src 中的文件名必须符合 kebab-case 命名规范

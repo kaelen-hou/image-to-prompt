@@ -2,6 +2,7 @@
 
 import { Button } from '@/shared/components/ui/button'
 import { AlertTriangle, User } from 'lucide-react'
+import { cn } from '@/shared/lib/utils'
 
 interface UserUsage {
   subscription: string
@@ -33,7 +34,7 @@ export function QuotaIndicator({ userUsage, onUpgrade }: QuotaIndicatorProps) {
   const resetDate = new Date(userUsage.resetDate).toLocaleDateString()
 
   return (
-    <div className={`bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden ${!userUsage.canUse ? 'border-red-200' : ''}`}>
+    <div className={cn("bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden", !userUsage.canUse && "border-red-200")}>
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
@@ -42,7 +43,7 @@ export function QuotaIndicator({ userUsage, onUpgrade }: QuotaIndicatorProps) {
             </div>
             <h3 className="text-xl font-bold text-gray-900">Usage Status</h3>
           </div>
-          <div className={`px-3 py-1.5 rounded-full text-sm font-semibold ${planInfo.bgColor} ${planInfo.color}`}>
+          <div className={cn("px-3 py-1.5 rounded-full text-sm font-semibold", planInfo.bgColor, planInfo.color)}>
             {planInfo.name}
           </div>
         </div>
@@ -54,7 +55,7 @@ export function QuotaIndicator({ userUsage, onUpgrade }: QuotaIndicatorProps) {
               <span className="text-sm font-semibold text-gray-700">
                 Remaining Uses
               </span>
-              <span className={`text-lg font-bold ${userUsage.remainingUses <= 0 ? 'text-red-600' : 'text-green-600'}`}>
+              <span className={cn("text-lg font-bold", userUsage.remainingUses <= 0 ? "text-red-600" : "text-green-600")}>
                 {userUsage.remainingUses}
               </span>
             </div>
