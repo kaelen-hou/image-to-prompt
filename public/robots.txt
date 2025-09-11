@@ -1,0 +1,29 @@
+# Robots.txt for GetPrompts - AI Image to Prompt Generator & Prompt Enhancer
+
+User-agent: *
+Allow: /
+
+# Important pages for crawling
+Allow: /image-to-prompt
+Allow: /prompt-enhancer
+Allow: /auth/login
+
+# Block sensitive areas
+Disallow: /api/
+Disallow: /uploads/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /dashboard/
+
+# Allow Google and Bing to access API documentation if you have it
+User-agent: Googlebot
+Allow: /api/docs
+
+User-agent: Bingbot
+Allow: /api/docs
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://getprompts.me/sitemap.xml

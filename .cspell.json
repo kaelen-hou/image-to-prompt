@@ -1,0 +1,32 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "DALL",
+    "getprompts",
+    "imageprompt",
+    "Midjourney",
+    "OpenAI",
+    "Anthropic",
+    "Coze",
+    "shadcn",
+    "nextjs",
+    "tailwindcss",
+    "firebase",
+    "firestore",
+    "vercel",
+    "radix",
+    "lucide",
+    "sonner",
+    "lingowhale",
+    "cdn"
+  ],
+  "ignorePaths": [
+    "node_modules",
+    ".next",
+    "dist",
+    "build",
+    "coverage",
+    ".git"
+  ]
+}

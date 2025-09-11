@@ -1,0 +1,42 @@
+{
+  "name": "GetPrompts - AI Image to Prompt Generator & Prompt Enhancer",
+  "short_name": "GetPrompts",
+  "description": "Transform your images into detailed AI prompts and enhance existing prompts for Midjourney, DALL-E, Stable Diffusion and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7c3aed",
+  "orientation": "portrait",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Generate Prompt",
+      "short_name": "Generate",
+      "description": "Upload an image to generate AI prompts",
+      "url": "/image-to-prompt",
+      "icons": [{ "src": "/shortcut-generate.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Enhance Prompt",
+      "short_name": "Enhance",
+      "description": "Improve and optimize your existing prompts",
+      "url": "/prompt-enhancer",
+      "icons": [{ "src": "/shortcut-enhance.png", "sizes": "96x96" }]
+    }
+  ],
+  "categories": ["productivity", "utilities", "photo", "graphics"]
+}
