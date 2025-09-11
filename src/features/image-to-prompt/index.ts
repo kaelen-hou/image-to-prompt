@@ -5,6 +5,11 @@ export { default as ImageToPromptFAQ } from './components/image-to-prompt-faq'
 export { default as TestimonialsSection } from './components/testimonials-section'
 export { default as HowItWorksSection } from './components/how-it-works-section'
 
+// New component exports
+export * from './components/upload'
+export * from './components/prompt'
+export * from './components/quota'
+
 // Services
 export { uploadFileToCoze, executeWorkflow } from './services/prompt-generation'
 
