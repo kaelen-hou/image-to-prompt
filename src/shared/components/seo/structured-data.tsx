@@ -307,3 +307,167 @@ export function CreativeWorkStructuredData({
     />
   )
 }
+
+// 添加面包屑导航结构化数据
+export function BreadcrumbStructuredData({ 
+  items 
+}: { 
+  items: Array<{name: string; url: string}> 
+}) {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url
+    }))
+  }
+
+  return (
+    <Script
+      id="breadcrumb-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(structuredData),
+      }}
+    />
+  )
+}
+
+// 添加评价/评论结构化数据
+export function ReviewStructuredData({
+  itemName,
+  reviewBody,
+  ratingValue,
+  bestRating = 5,
+  worstRating = 1,
+  author = "GetPrompts User",
+  datePublished
+}: {
+  itemName: string
+  reviewBody: string
+  ratingValue: number
+  bestRating?: number
+  worstRating?: number
+  author?: string
+  datePublished: string
+}) {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Review',
+    itemReviewed: {
+      '@type': 'SoftwareApplication',
+      name: itemName
+    },
+    reviewBody,
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue,
+      bestRating,
+      worstRating
+    },
+    author: {
+      '@type': 'Person',
+      name: author
+    },
+    datePublished
+  }
+
+  return (
+    <Script
+      id="review-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(structuredData),
+      }}
+    />
+  )
+}
+
+// 添加课程/教程结构化数据
+export function CourseStructuredData({
+  name,
+  description,
+  provider = "GetPrompts",
+  url,
+  hasPart
+}: {
+  name: string
+  description: string
+  provider?: string
+  url: string
+  hasPart?: Array<{name: string; description: string; url: string}>
+}) {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name,
+    description,
+    provider: {
+      '@type': 'Organization',
+      name: provider
+    },
+    url,
+    ...(hasPart && {
+      hasPart: hasPart.map(part => ({
+        '@type': 'Course',
+        name: part.name,
+        description: part.description,
+        url: part.url
+      }))
+    })
+  }
+
+  return (
+    <Script
+      id="course-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(structuredData),
+      }}
+    />
+  )
+}
+
+// 添加数据集结构化数据（适用于AI训练数据）
+export function DatasetStructuredData({
+  name,
+  description,
+  creator = "GetPrompts",
+  keywords,
+  distribution
+}: {
+  name: string
+  description: string
+  creator?: string
+  keywords?: string[]
+  distribution?: {
+    contentUrl: string
+    encodingFormat: string
+  }
+}) {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name,
+    description,
+    creator: {
+      '@type': 'Organization',
+      name: creator
+    },
+    ...(keywords && { keywords }),
+    ...(distribution && { distribution })
+  }
+
+  return (
+    <Script
+      id="dataset-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(structuredData),
+      }}
+    />
+  )
+}

@@ -31,6 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // { url: '/vs/midjourney-vs-dalle', priority: 0.6, changeFreq: 'monthly' as const },
     // { url: '/vs/stable-diffusion-vs-midjourney', priority: 0.6, changeFreq: 'monthly' as const },
     
+    // Support and legal pages
+    { url: '/contact', priority: 0.6, changeFreq: 'monthly' as const },
+    { url: '/help', priority: 0.7, changeFreq: 'monthly' as const },
+    { url: '/privacy', priority: 0.4, changeFreq: 'yearly' as const },
+    { url: '/terms', priority: 0.4, changeFreq: 'yearly' as const },
+    
     // Utility pages
     { url: '/auth/login', priority: 0.3, changeFreq: 'monthly' as const },
     { url: '/offline', priority: 0.1, changeFreq: 'yearly' as const },

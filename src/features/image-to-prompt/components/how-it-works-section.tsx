@@ -1,4 +1,5 @@
-import { Upload, Search, Sparkles, Copy, Lightbulb, Target, Zap } from 'lucide-react'
+import { Upload, Search, Sparkles, Copy, Lightbulb, Target, Zap, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 export default function HowItWorksSection() {
   const steps = [
@@ -95,6 +96,36 @@ export default function HowItWorksSection() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Related Guides Section */}
+        <div className="mt-12 text-center">
+          <h4 className="text-lg font-semibold text-gray-900 mb-6">
+            Learn More About AI Prompt Creation
+          </h4>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link 
+              href="/guides/prompt-engineering" 
+              className="inline-flex items-center px-6 py-3 bg-white border border-purple-200 text-purple-700 rounded-lg hover:bg-purple-50 hover:border-purple-300 transition-colors font-medium"
+            >
+              Prompt Engineering Guide
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+            <Link 
+              href="/guides/ai-art-styles" 
+              className="inline-flex items-center px-6 py-3 bg-white border border-purple-200 text-purple-700 rounded-lg hover:bg-purple-50 hover:border-purple-300 transition-colors font-medium"
+            >
+              AI Art Styles Guide
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+            <Link 
+              href="/guides/midjourney-guide" 
+              className="inline-flex items-center px-6 py-3 bg-white border border-purple-200 text-purple-700 rounded-lg hover:bg-purple-50 hover:border-purple-300 transition-colors font-medium"
+            >
+              Midjourney Guide
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
           </div>
         </div>
       </div>

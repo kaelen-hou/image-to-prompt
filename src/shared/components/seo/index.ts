@@ -5,5 +5,9 @@ export {
   FAQStructuredData,
   HowToStructuredData,
   ArticleStructuredData,
-  CreativeWorkStructuredData
+  CreativeWorkStructuredData,
+  BreadcrumbStructuredData,
+  ReviewStructuredData,
+  CourseStructuredData,
+  DatasetStructuredData
 } from './structured-data'
