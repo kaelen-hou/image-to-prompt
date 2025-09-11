@@ -65,11 +65,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code', // Add your actual verification code
-    // yandex: 'your-yandex-verification-code',
-    // yahoo: 'your-yahoo-verification-code',
-  },
 };
 
 export default function RootLayout({
@@ -95,7 +90,7 @@ export default function RootLayout({
         <AuthProvider>
           {children}
           <InstallPrompt />
-          <Toaster 
+          <Toaster
             position="top-center"
             expand={false}
             richColors
