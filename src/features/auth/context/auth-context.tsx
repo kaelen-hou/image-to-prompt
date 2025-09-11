@@ -9,6 +9,7 @@ import {
   signOut as firebaseSignOut
 } from 'firebase/auth';
 import { auth } from '../services/firebase';
+import { clientLogger } from '@/lib/logger/client';
 
 interface AuthContextType {
   user: User | null;
@@ -45,7 +46,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       await signInWithPopup(auth, provider);
     } catch (error) {
-      console.error('Error signing in with Google:', error);
+      clientLogger.componentLog('error', 'Google sign-in failed', 'AuthContext', {}, 
+        error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   };
@@ -54,7 +56,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       await firebaseSignOut(auth);
     } catch (error) {
-      console.error('Error signing out:', error);
+      clientLogger.componentLog('error', 'Sign out failed', 'AuthContext', {
+        userId: user?.uid,
+      }, error instanceof Error ? error : new Error(String(error)));
       throw error;
     }
   };

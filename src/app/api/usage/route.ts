@@ -1,25 +1,23 @@
 import { NextResponse } from 'next/server';
 import { withAuth, AuthenticatedRequest } from '@/features/auth/server';
 import { getUserUsage } from '@/features/user';
+import { createApiResponse } from '@/lib/validation/schemas';
+import { logger } from '@/lib/logger';
 
 async function handleGetUsage(request: AuthenticatedRequest) {
-  try {
-    const data = await getUserUsage(request);
-    
-    return NextResponse.json({
-      success: true,
-      data
-    });
+  logger.info('Getting user usage', {
+    userId: request.user.uid,
+  });
 
-  } catch (error) {
-    return NextResponse.json(
-      { 
-        error: 'Failed to get usage information',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      },
-      { status: 500 }
-    );
-  }
+  const data = await getUserUsage(request);
+  
+  logger.info('User usage retrieved successfully', {
+    userId: request.user.uid,
+    subscription: data.subscription,
+    remainingUses: data.remainingUses,
+  });
+  
+  return NextResponse.json(createApiResponse(true, data));
 }
 
 export const GET = withAuth(handleGetUsage);

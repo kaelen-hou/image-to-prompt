@@ -5,6 +5,7 @@ import { useCallback, useEffect, memo } from 'react'
 import { toast } from 'sonner'
 import { Sparkles, User } from 'lucide-react'
 import { useAuth } from '@/features/auth/client'
+import { clientLogger } from '@/lib/logger/client'
 import dynamic from 'next/dynamic'
 
 // Import stores
@@ -118,7 +119,9 @@ export default function ImageToPromptHero() {
       }
     },
     onError: (error) => {
-      console.error('Failed to fetch usage:', error)
+      clientLogger.componentLog('error', 'Failed to fetch user usage', 'ImageToPromptHero', {
+        userId: user?.uid,
+      }, error instanceof Error ? error : new Error(String(error)))
     }
   })
 

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { Button } from '@/shared/components/ui/button'
 import { useAuth } from '@/features/auth/client'
+import { clientLogger } from '@/lib/logger/client'
 
 // Constants to ensure SSR consistency
 const BRAND_NAME = 'GetPrompts'
@@ -23,7 +24,9 @@ export default function Header() {
     try {
       await signOut();
     } catch (error) {
-      console.error('Sign out error:', error);
+      clientLogger.componentLog('error', 'Sign out failed', 'Header', {
+        userId: user?.uid,
+      }, error instanceof Error ? error : new Error(String(error)));
     }
   };
 

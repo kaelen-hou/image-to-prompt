@@ -140,7 +140,15 @@ export function validateEnv() {
   try {
     return EnvSchema.parse(process.env)
   } catch (error) {
-    console.error('Environment validation failed:', error)
+    // Import logger here to avoid circular dependencies  
+    import('../logger').then(({ logger }) => {
+      logger.error('Environment validation failed', {
+        NODE_ENV: process.env.NODE_ENV,
+      }, error instanceof Error ? error : new Error(String(error)))
+    }).catch(() => {
+      // Fallback to console if logger fails to import
+      console.error('Environment validation failed:', error)
+    })
     throw new Error('Invalid environment configuration')
   }
 }

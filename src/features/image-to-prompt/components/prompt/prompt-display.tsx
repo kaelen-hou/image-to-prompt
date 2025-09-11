@@ -4,6 +4,7 @@ import { Button } from '@/shared/components/ui/button'
 import { useState } from 'react'
 import { Clipboard, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
+import { clientLogger } from '@/lib/logger/client'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -39,7 +40,10 @@ export function PromptDisplay({
       setTimeout(() => setCopiedType(null), 2000)
     } catch (error) {
       toast.error('Failed to copy to clipboard')
-      console.error('Copy failed:', error)
+      clientLogger.componentLog('error', 'Clipboard copy failed', 'PromptDisplay', {
+        type,
+        textLength: textToCopy.length
+      }, error instanceof Error ? error : new Error(String(error)))
     }
   }
 

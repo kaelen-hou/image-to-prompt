@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { X, Download } from 'lucide-react';
+import { clientLogger } from '@/lib/logger/client';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
@@ -35,7 +36,7 @@ export function InstallPrompt() {
     const { outcome } = await deferredPrompt.userChoice;
     
     if (outcome === 'accepted') {
-      console.log('PWA installed');
+      clientLogger.componentLog('info', 'PWA installed by user', 'InstallPrompt');
     }
     
     setDeferredPrompt(null);

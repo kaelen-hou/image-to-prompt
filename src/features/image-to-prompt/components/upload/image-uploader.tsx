@@ -5,6 +5,7 @@ import { useState, useRef } from 'react'
 import Image from 'next/image'
 import { Camera, Ban } from 'lucide-react'
 import { toast } from 'sonner'
+import { clientLogger } from '@/lib/logger/client'
 
 interface ImageUploaderProps {
   selectedImage: string | null
@@ -45,7 +46,10 @@ export function ImageUploader({
       onImageSelect(imageUrl, file)
     } catch (error) {
       toast.error('Failed to process image')
-      console.error('Error processing image:', error)
+      clientLogger.componentLog('error', 'Image processing failed', 'ImageUploader', {
+        fileName: file.name,
+        fileSize: file.size
+      }, error instanceof Error ? error : new Error(String(error)))
     }
   }
 
