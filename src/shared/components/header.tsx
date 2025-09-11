@@ -50,6 +50,23 @@ function Header() {
     }
   };
 
+  // Helper function to determine if a nav item is active
+  const isActive = (path: string) => {
+    if (path === '/guides') {
+      return pathname.startsWith('/guides');
+    }
+    return pathname === path;
+  };
+
+  // Helper function to get nav item classes
+  const getNavItemClasses = (path: string) => {
+    const baseClasses = "text-sm transition-colors relative";
+    const activeClasses = "text-violet-600 font-medium";
+    const inactiveClasses = "text-gray-600 hover:text-gray-900";
+    
+    return `${baseClasses} ${isActive(path) ? activeClasses : inactiveClasses}`;
+  };
+
   return (
     <header className="border-b">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -58,17 +75,24 @@ function Header() {
             {BRAND_NAME}
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/image-to-prompt" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/image-to-prompt" className={getNavItemClasses('/image-to-prompt')}>
               Image to Prompt
+              {isActive('/image-to-prompt') && <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-violet-600 rounded-full"></div>}
             </Link>
-            <Link href="/prompt-enhancer" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/prompt-enhancer" className={getNavItemClasses('/prompt-enhancer')}>
               Prompt Enhancer
+              {isActive('/prompt-enhancer') && <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-violet-600 rounded-full"></div>}
             </Link>
-            <Link href="/guides" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/guides" className={getNavItemClasses('/guides')}>
               Guides
+              {isActive('/guides') && <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-violet-600 rounded-full"></div>}
             </Link>
-            <button onClick={handleToolsClick} className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            <button 
+              onClick={handleToolsClick} 
+              className={`${getNavItemClasses('/')} ${pathname === '/' ? 'text-violet-600 font-medium' : ''}`}
+            >
               Tools
+              {pathname === '/' && <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-violet-600 rounded-full"></div>}
             </button>
           </nav>
         </div>
