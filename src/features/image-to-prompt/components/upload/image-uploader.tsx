@@ -132,7 +132,7 @@ function ImageUploaderComponent({
                 <p className="text-sm font-medium text-gray-700 truncate">
                   {selectedFile?.name}
                 </p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-600">
                   {selectedFile && `${(selectedFile.size / 1024 / 1024).toFixed(1)} MB`}
                 </p>
               </div>

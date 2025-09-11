@@ -97,7 +97,7 @@ export function PromptTypeSelector({
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-3">
               Additional Instructions
-              <span className="text-gray-500 font-normal">(Optional)</span>
+              <span className="text-gray-600 font-normal">(Optional)</span>
             </label>
             <div className="relative">
               <textarea
@@ -114,7 +114,7 @@ export function PromptTypeSelector({
                 rows={3}
               />
             </div>
-            <p className="text-xs text-gray-500 mt-2 leading-relaxed">
+            <p className="text-xs text-gray-600 mt-2 leading-relaxed">
               💡 Example: &ldquo;Make it more vibrant&rdquo;, &ldquo;Add cyberpunk elements&rdquo;, &ldquo;Focus on lighting&rdquo;
             </p>
           </div>
