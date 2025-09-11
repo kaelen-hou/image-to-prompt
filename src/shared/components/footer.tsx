@@ -10,20 +10,6 @@ export default function Footer() {
             <p className="text-sm text-gray-400 mb-4">
               Transform your images into powerful AI prompts and enhance existing ones. Master AI art creation with our tools and guides.
             </p>
-            <div className="flex space-x-4">
-              <Link href="#" className="text-gray-400 hover:text-white">
-                <span className="sr-only">Twitter</span>
-                🐦
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-white">
-                <span className="sr-only">GitHub</span>
-                📱
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-white">
-                <span className="sr-only">Discord</span>
-                💬
-              </Link>
-            </div>
           </div>
 
           <div>
