@@ -1,7 +1,6 @@
 'use client'
 
 import { Button } from '@/shared/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card'
 import { useState, useRef } from 'react'
 import Image from 'next/image'
 import { Camera, Ban } from 'lucide-react'
@@ -89,22 +88,23 @@ export function ImageUploader({
   }
 
   return (
-    <Card className="w-full">
-      <CardHeader>
-        <CardTitle className="text-center">Upload Image</CardTitle>
-        <p className="text-sm text-gray-600 text-center">
-          Upload an image to generate AI prompts
-        </p>
-      </CardHeader>
-      <CardContent>
+    <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+      <div className="p-6">
+        <div className="text-center mb-6">
+          <h3 className="text-xl font-bold text-gray-900 mb-2">Upload Image</h3>
+          <p className="text-sm text-gray-600">
+            Upload an image to generate AI prompts
+          </p>
+        </div>
+
         <div
           className={`
-            border-2 border-dashed rounded-lg p-8 text-center transition-all duration-200
+            relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300
             ${isDragOver && !disabled 
-              ? 'border-blue-400 bg-blue-50' 
-              : 'border-gray-300 hover:border-gray-400'
+              ? 'border-violet-400 bg-violet-50 scale-105' 
+              : 'border-gray-300 hover:border-violet-300'
             }
-            ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+            ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-50'}
           `}
           onDrop={handleDrop}
           onDragOver={handleDragOver}
@@ -113,32 +113,47 @@ export function ImageUploader({
         >
           {selectedImage ? (
             <div className="space-y-4">
-              <div className="relative w-full max-w-sm mx-auto">
+              <div className="relative w-full max-w-sm mx-auto group">
                 <Image
                   src={selectedImage}
                   alt="Selected"
                   width={400}
                   height={300}
-                  className="rounded-lg object-cover"
+                  className="rounded-xl object-cover shadow-md group-hover:shadow-lg transition-shadow duration-200"
                   style={{ aspectRatio: '4/3' }}
                 />
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 rounded-xl transition-all duration-200" />
               </div>
-              <p className="text-sm text-gray-600">
-                {selectedFile?.name}
-              </p>
+              <div className="space-y-2">
+                <p className="text-sm font-medium text-gray-700 truncate">
+                  {selectedFile?.name}
+                </p>
+                <p className="text-xs text-gray-500">
+                  {selectedFile && `${(selectedFile.size / 1024 / 1024).toFixed(1)} MB`}
+                </p>
+              </div>
               {!disabled && (
-                <Button variant="outline" size="sm">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="border-violet-200 text-violet-600 hover:bg-violet-50 hover:border-violet-300"
+                >
+                  <Camera className="w-4 h-4 mr-2" />
                   Change Image
                 </Button>
               )}
             </div>
           ) : (
-            <div className="space-y-4">
-              <div className="text-4xl text-gray-400">
-                {disabled ? <Ban /> : <Camera />}
+            <div className="space-y-6">
+              <div className="mx-auto w-16 h-16 bg-gradient-to-br from-violet-100 to-purple-100 rounded-full flex items-center justify-center">
+                {disabled ? (
+                  <Ban className="w-8 h-8 text-gray-400" />
+                ) : (
+                  <Camera className="w-8 h-8 text-violet-600" />
+                )}
               </div>
-              <div>
-                <p className="text-lg font-medium text-gray-700 mb-2">
+              <div className="space-y-2">
+                <p className="text-lg font-semibold text-gray-900">
                   {disabled 
                     ? 'Upload disabled' 
                     : isDragOver 
@@ -146,12 +161,12 @@ export function ImageUploader({
                       : 'Drop image here or click to browse'
                   }
                 </p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-600">
                   Supports JPG, PNG, WebP up to 10MB
                 </p>
               </div>
               {!disabled && (
-                <Button className="bg-purple-600 hover:bg-purple-700">
+                <Button className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 shadow-md hover:shadow-lg transition-all duration-200">
                   <Camera className="w-4 h-4 mr-2" />
                   Choose Image
                 </Button>
@@ -168,19 +183,25 @@ export function ImageUploader({
           className="hidden"
           disabled={disabled}
         />
+      </div>
 
-        {/* Usage info */}
-        {userUsage && (
-          <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-            <div className="text-sm text-gray-600">
-              <div className="flex justify-between items-center">
-                <span>Plan: {userUsage.subscription}</span>
-                <span>Remaining: {userUsage.remainingUses}</span>
-              </div>
+      {/* Usage info */}
+      {userUsage && (
+        <div className="border-t border-gray-100 bg-gray-50 p-4">
+          <div className="flex justify-between items-center text-sm">
+            <div className="flex items-center space-x-2">
+              <span className="font-medium text-gray-700">Plan:</span>
+              <span className="px-2 py-1 bg-violet-100 text-violet-700 rounded-full text-xs font-medium">
+                {userUsage.subscription}
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <span className="text-gray-600">Remaining:</span>
+              <span className="font-bold text-violet-600">{userUsage.remainingUses}</span>
             </div>
           </div>
-        )}
-      </CardContent>
-    </Card>
+        </div>
+      )}
+    </div>
   )
 }

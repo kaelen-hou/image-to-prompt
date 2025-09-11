@@ -271,64 +271,75 @@ export default function ImageToPromptHero() {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+    <section className="min-h-screen bg-gradient-to-br from-violet-50 via-blue-50 to-indigo-50 py-8">
+      <div className="container mx-auto px-4 max-w-7xl">
+        {/* Header Section */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Transform Images to AI Prompts
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Upload any image and instantly generate detailed prompts for AI art generation.
             Perfect for Stable Diffusion, Midjourney, and other AI models.
           </p>
         </div>
 
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Left Column - Upload & Configuration */}
-            <div className="lg:col-span-1 space-y-6">
-              <ImageUploader
-                selectedImage={selectedImage}
-                selectedFile={selectedFile}
-                onImageSelect={handleImageSelect}
-                disabled={isGenerating || !userUsage?.canUse}
-                userUsage={userUsage}
-              />
-              
-              <PromptTypeSelector
-                promptType={promptType}
-                userQuery={userQuery}
-                onPromptTypeChange={handlePromptTypeChange}
-                onUserQueryChange={handleUserQueryChange}
-                disabled={isGenerating}
-              />
+        {/* Main Content - Two Column Layout */}
+        <div className="grid grid-cols-1 xl:grid-cols-[minmax(320px,400px)_1fr] gap-6 lg:gap-8 xl:gap-10 items-start">
+          {/* Left Sidebar - Upload & Configuration */}
+          <div className="space-y-6">
+            <ImageUploader
+              selectedImage={selectedImage}
+              selectedFile={selectedFile}
+              onImageSelect={handleImageSelect}
+              disabled={isGenerating || !userUsage?.canUse}
+              userUsage={userUsage}
+            />
+            
+            <PromptTypeSelector
+              promptType={promptType}
+              userQuery={userQuery}
+              onPromptTypeChange={handlePromptTypeChange}
+              onUserQueryChange={handleUserQueryChange}
+              disabled={isGenerating}
+            />
 
-              <QuotaIndicator
-                userUsage={userUsage}
-                onUpgrade={handleUpgrade}
-              />
-            </div>
+            <QuotaIndicator
+              userUsage={userUsage}
+              onUpgrade={handleUpgrade}
+            />
+          </div>
 
-            {/* Right Column - Results */}
-            <div className="lg:col-span-2 space-y-6">
-              <div className="flex justify-center">
+          {/* Right Content - Generation & Results */}
+          <div className="space-y-6 min-w-0">
+            {/* Generation Button */}
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+              <div className="text-center">
                 <Button
                   onClick={handleGeneratePrompt}
                   disabled={!selectedFile || isGenerating || !userUsage?.canUse || isLoadingUsage}
-                  className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                  size="lg"
+                  className="px-8 py-3 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Sparkles className="w-5 h-5 mr-2" />
                   {isGenerating ? 'Generating...' : 'Generate Prompt'}
                 </Button>
+                
+                {selectedFile && (
+                  <p className="text-sm text-gray-600 mt-3 font-medium">
+                    Ready to generate prompt for <span className="text-gray-900">{selectedFile.name}</span>
+                  </p>
+                )}
               </div>
-
-              <PromptDisplay
-                generatedPrompt={generatedPrompt}
-                negativePrompt={negativePrompt}
-                isLoading={isGenerating}
-                onCopy={handleCopy}
-              />
             </div>
+
+            {/* Results Display */}
+            <PromptDisplay
+              generatedPrompt={generatedPrompt}
+              negativePrompt={negativePrompt}
+              isLoading={isGenerating}
+              onCopy={handleCopy}
+            />
           </div>
         </div>
       </div>
