@@ -1,13 +1,53 @@
 import type { Metadata } from "next"
 import { Header, Footer } from '@/shared'
 import { ToolStructuredData } from '@/shared/components/seo'
-import {
-  ImageToPromptHero,
-  ImageGallery,
-  TestimonialsSection,
-  HowItWorksSection,
-  ImageToPromptFAQ
-} from '@/features/image-to-prompt'
+import { ImageToPromptHero } from '@/features/image-to-prompt'
+import dynamic from 'next/dynamic'
+
+// Lazy load below-the-fold components with better loading states
+const ImageGallery = dynamic(() => 
+  import('@/features/image-to-prompt').then(mod => ({ default: mod.ImageGallery })), {
+  loading: () => (
+    <div className="py-16 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="h-96 animate-pulse bg-gray-200 rounded-2xl" />
+      </div>
+    </div>
+  )
+})
+
+const TestimonialsSection = dynamic(() => 
+  import('@/features/image-to-prompt').then(mod => ({ default: mod.TestimonialsSection })), {
+  loading: () => (
+    <div className="py-16 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="h-64 animate-pulse bg-gray-200 rounded-2xl" />
+      </div>
+    </div>
+  )
+})
+
+const HowItWorksSection = dynamic(() => 
+  import('@/features/image-to-prompt').then(mod => ({ default: mod.HowItWorksSection })), {
+  loading: () => (
+    <div className="py-16 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <div className="h-80 animate-pulse bg-gray-200 rounded-2xl" />
+      </div>
+    </div>
+  )
+})
+
+const ImageToPromptFAQ = dynamic(() => 
+  import('@/features/image-to-prompt').then(mod => ({ default: mod.ImageToPromptFAQ })), {
+  loading: () => (
+    <div className="py-16 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="h-96 animate-pulse bg-gray-200 rounded-2xl" />
+      </div>
+    </div>
+  )
+})
 
 export const metadata: Metadata = {
   title: "AI Image to Prompt Generator - Transform Images into AI Art Prompts | GetPrompts",
