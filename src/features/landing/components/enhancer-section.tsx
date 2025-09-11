@@ -1,5 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card'
 import { Button } from '@/shared/components/ui/button'
+import { Checkbox } from '@/shared/components/ui/input'
+import { Construction, ImageIcon } from 'lucide-react'
 
 export default function EnhancerSection() {
   return (
@@ -24,7 +26,7 @@ export default function EnhancerSection() {
           <Card className="mb-8 relative overflow-hidden">
             <div className="absolute inset-0 bg-gray-50 bg-opacity-80 flex items-center justify-center z-10">
               <div className="text-center">
-                <div className="text-4xl mb-3">🚧</div>
+                <div className="flex justify-center mb-3"><Construction size={48} className="text-gray-400" /></div>
                 <p className="text-lg font-medium text-gray-700 mb-2">Feature Under Development</p>
                 <p className="text-gray-600">We're working hard to bring you this amazing feature!</p>
               </div>
@@ -39,7 +41,7 @@ export default function EnhancerSection() {
                     Upload Image
                   </label>
                   <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                    <div className="text-2xl mb-2">🖼️</div>
+                    <div className="flex justify-center mb-2"><ImageIcon size={32} className="text-gray-400" /></div>
                     <p className="text-sm text-gray-600">Drop image here</p>
                     <Button variant="outline" size="sm" className="mt-2" disabled>
                       Browse
@@ -52,24 +54,24 @@ export default function EnhancerSection() {
                     Enhancement Options
                   </label>
                   <div className="space-y-3">
-                    <div className="flex items-center space-x-2">
-                      <input type="checkbox" id="upscale" className="rounded" disabled />
-                      <label htmlFor="upscale" className="text-sm">2x Upscaling</label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <input type="checkbox" id="denoise" className="rounded" disabled />
-                      <label htmlFor="denoise" className="text-sm">Noise Reduction</label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <input type="checkbox" id="sharpen" className="rounded" disabled />
-                      <label htmlFor="sharpen" className="text-sm">Sharpening</label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <input type="checkbox" id="colorize" className="rounded" disabled />
-                      <label htmlFor="colorize" className="text-sm">Color Enhancement</label>
-                    </div>
+                    <Checkbox 
+                      label="2x Upscaling" 
+                      disabled 
+                    />
+                    <Checkbox 
+                      label="Noise Reduction" 
+                      disabled 
+                    />
+                    <Checkbox 
+                      label="Sharpening" 
+                      disabled 
+                    />
+                    <Checkbox 
+                      label="Color Enhancement" 
+                      disabled 
+                    />
                   </div>
-                  <Button className="w-full mt-4 bg-purple-600 hover:bg-purple-700" disabled>
+                  <Button className="w-full mt-4" disabled>
                     Enhance Image
                   </Button>
                 </div>

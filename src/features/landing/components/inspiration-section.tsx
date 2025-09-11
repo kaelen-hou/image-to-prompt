@@ -1,38 +1,39 @@
 'use client'
 
-import { Card, CardContent } from '@/shared/components/ui/card'
 import { Button } from '@/shared/components/ui/button'
+import { ExampleCard } from '@/shared/components/ui/card-variants'
 import { toast } from 'sonner'
+import { Sunrise, Building, Palette, Flower, Waves, Building2 } from 'lucide-react'
 
 export default function InspirationSection() {
   const examples = [
     {
-      image: "🌅",
+      image: <Sunrise size={24} className="text-gray-600" />,
       title: "Sunset Landscape",
       prompt: "A serene sunset over rolling hills, warm golden light, soft clouds, peaceful atmosphere"
     },
     {
-      image: "🏛️",
+      image: <Building size={24} className="text-gray-600" />,
       title: "Ancient Architecture",
       prompt: "Ancient Greek temple, marble columns, dramatic lighting, historical monument"
     },
     {
-      image: "🎨",
+      image: <Palette size={24} className="text-gray-600" />,
       title: "Abstract Art",
       prompt: "Vibrant abstract painting, bold brushstrokes, dynamic composition, modern art style"
     },
     {
-      image: "🌸",
+      image: <Flower size={24} className="text-gray-600" />,
       title: "Cherry Blossoms",
       prompt: "Pink cherry blossoms in full bloom, spring season, soft petals falling, peaceful garden"
     },
     {
-      image: "🌊",
+      image: <Waves size={24} className="text-gray-600" />,
       title: "Ocean Waves",
       prompt: "Powerful ocean waves crashing on rocky shore, dramatic seascape, stormy weather"
     },
     {
-      image: "🏙️",
+      image: <Building2 size={24} className="text-gray-600" />,
       title: "City Skyline",
       prompt: "Modern city skyline at night, glowing skyscrapers, urban landscape, neon lights"
     }
@@ -62,13 +63,12 @@ export default function InspirationSection() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {examples.map((example, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow cursor-pointer">
-              <CardContent className="p-6">
-                <div className="text-6xl mb-4 text-center">{example.image}</div>
-                <h3 className="text-lg font-semibold mb-2">{example.title}</h3>
-                <p className="text-sm text-gray-600 mb-4 line-clamp-3">
-                  {example.prompt}
-                </p>
+            <ExampleCard
+              key={index}
+              image={example.image}
+              title={example.title}
+              description={example.prompt}
+              actions={
                 <Button 
                   variant="outline" 
                   size="sm" 
@@ -77,8 +77,8 @@ export default function InspirationSection() {
                 >
                   Use This Prompt
                 </Button>
-              </CardContent>
-            </Card>
+              }
+            />
           ))}
         </div>
 
