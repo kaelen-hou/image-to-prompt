@@ -1,6 +1,7 @@
+import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card'
 import { Button } from '@/shared/components/ui/button'
-import { ImageIcon, Sparkles, Palette, Zap } from 'lucide-react'
+import { ImageIcon, Sparkles, Palette, BookOpen } from 'lucide-react'
 
 export default function ToolsSection() {
   const tools = [
@@ -8,25 +9,29 @@ export default function ToolsSection() {
       title: "Image to Prompt",
       description: "Convert your images into detailed AI prompts for creating similar artwork",
       icon: ImageIcon,
-      color: "bg-purple-100 text-purple-700"
+      color: "bg-violet-100 text-violet-700",
+      href: "/image-to-prompt"
     },
     {
       title: "Prompt Enhancer", 
       description: "Improve and optimize your existing prompts for better AI generation results",
       icon: Sparkles,
-      color: "bg-blue-100 text-blue-700"
+      color: "bg-blue-100 text-blue-700",
+      href: "/prompt-enhancer"
     },
     {
-      title: "Style Analyzer",
-      description: "Analyze art styles and get prompts to recreate similar aesthetic elements",
+      title: "Learning Guides",
+      description: "Master prompt engineering with our comprehensive guides and tutorials",
+      icon: BookOpen,
+      color: "bg-green-100 text-green-700",
+      href: "/guides"
+    },
+    {
+      title: "Style Explorer",
+      description: "Discover different AI art styles and learn how to achieve them",
       icon: Palette,
-      color: "bg-green-100 text-green-700"
-    },
-    {
-      title: "Batch Processor",
-      description: "Process multiple images at once to generate prompts in bulk",
-      icon: Zap,
-      color: "bg-orange-100 text-orange-700"
+      color: "bg-orange-100 text-orange-700",
+      href: "/guides/ai-art-styles"
     }
   ]
 
@@ -56,9 +61,11 @@ export default function ToolsSection() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Button variant="outline" className="w-full">
-                  Try Now
-                </Button>
+                <Link href={tool.href}>
+                  <Button variant="outline" className="w-full">
+                    {tool.title === "Learning Guides" || tool.title === "Style Explorer" ? "Learn More" : "Try Now"}
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           ))}

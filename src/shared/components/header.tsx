@@ -36,24 +36,21 @@ export default function Header() {
     <header className="border-b">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center space-x-8">
-          <Link href="/" className="text-xl font-bold text-purple-600">
-            Image Prompt
+          <Link href="/" className="text-xl font-bold text-violet-600">
+            GetPrompts
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="#tools" className="text-sm text-gray-600 hover:text-gray-900">
+            <Link href="/image-to-prompt" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+              Image to Prompt
+            </Link>
+            <Link href="/prompt-enhancer" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+              Prompt Enhancer
+            </Link>
+            <Link href="/guides" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+              Guides
+            </Link>
+            <Link href="#tools" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
               Tools
-            </Link>
-            <Link href="/image-to-prompt" className="text-sm text-gray-600 hover:text-gray-900">
-              Generator
-            </Link>
-            <Link href="#enhancer" className="text-sm text-gray-600 hover:text-gray-900">
-              Enhancer
-            </Link>
-            <Link href="#inspiration" className="text-sm text-gray-600 hover:text-gray-900">
-              Inspiration
-            </Link>
-            <Link href="#faq" className="text-sm text-gray-600 hover:text-gray-900">
-              FAQ
             </Link>
           </nav>
         </div>
@@ -84,7 +81,7 @@ export default function Header() {
               </Button>
               <Button 
                 size="sm" 
-                className="bg-purple-600 hover:bg-purple-700"
+                className="bg-violet-600 hover:bg-violet-700"
                 onClick={handleGetStarted}
               >
                 Get Started

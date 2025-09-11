@@ -6,9 +6,9 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
-            <div className="text-xl font-bold text-white mb-4">Image Prompt</div>
+            <div className="text-xl font-bold text-white mb-4">GetPrompts</div>
             <p className="text-sm text-gray-400 mb-4">
-              Transform your images into powerful AI prompts. Create better AI art with our advanced tools.
+              Transform your images into powerful AI prompts and enhance existing ones. Master AI art creation with our tools and guides.
             </p>
             <div className="flex space-x-4">
               <Link href="#" className="text-gray-400 hover:text-white">
@@ -29,20 +29,20 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-white mb-4">Tools</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="#" className="hover:text-white">Image to Prompt</Link></li>
-              <li><Link href="#" className="hover:text-white">Prompt Enhancer</Link></li>
-              <li><Link href="#" className="hover:text-white">Style Analyzer</Link></li>
-              <li><Link href="#" className="hover:text-white">Batch Processor</Link></li>
+              <li><Link href="/image-to-prompt" className="hover:text-white">Image to Prompt</Link></li>
+              <li><Link href="/prompt-enhancer" className="hover:text-white">Prompt Enhancer</Link></li>
+              <li><Link href="/guides" className="hover:text-white">Learning Guides</Link></li>
+              <li><Link href="/guides/ai-art-styles" className="hover:text-white">Art Styles</Link></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold text-white mb-4">Resources</h3>
+            <h3 className="font-semibold text-white mb-4">Learn</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="#" className="hover:text-white">Documentation</Link></li>
-              <li><Link href="#" className="hover:text-white">API Reference</Link></li>
-              <li><Link href="#" className="hover:text-white">Examples</Link></li>
-              <li><Link href="#" className="hover:text-white">Blog</Link></li>
+              <li><Link href="/guides/prompt-engineering" className="hover:text-white">Prompt Engineering</Link></li>
+              <li><Link href="/guides/midjourney-guide" className="hover:text-white">Midjourney Guide</Link></li>
+              <li><Link href="/guides/stable-diffusion-guide" className="hover:text-white">Stable Diffusion</Link></li>
+              <li><Link href="/guides/prompt-modifiers" className="hover:text-white">Prompt Modifiers</Link></li>
             </ul>
           </div>
 
@@ -59,7 +59,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-400">
-            © 2024 Image Prompt. All rights reserved.
+            © 2024 GetPrompts. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="#" className="text-sm text-gray-400 hover:text-white">
