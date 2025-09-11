@@ -156,3 +156,154 @@ export function FAQStructuredData({ faqs }: { faqs: Array<{ question: string; an
     />
   )
 }
+
+export function HowToStructuredData({ 
+  name, 
+  description, 
+  steps,
+  totalTime,
+  estimatedCost
+}: { 
+  name: string
+  description: string
+  steps: Array<{text: string; name: string; image?: string}>
+  totalTime?: string
+  estimatedCost?: string
+}) {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name,
+    description,
+    ...(totalTime && { totalTime }),
+    ...(estimatedCost && { estimatedCost }),
+    step: steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      ...(step.image && { 
+        image: {
+          '@type': 'ImageObject',
+          url: step.image
+        }
+      })
+    }))
+  }
+
+  return (
+    <Script
+      id="howto-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(structuredData),
+      }}
+    />
+  )
+}
+
+export function ArticleStructuredData({ 
+  headline, 
+  description, 
+  datePublished,
+  dateModified,
+  author = "GetPrompts Team",
+  image,
+  wordCount,
+  keywords
+}: { 
+  headline: string
+  description: string
+  datePublished: string
+  dateModified?: string
+  author?: string
+  image?: string
+  wordCount?: number
+  keywords?: string[]
+}) {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline,
+    description,
+    datePublished,
+    dateModified: dateModified || datePublished,
+    author: {
+      '@type': 'Organization',
+      name: author
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'GetPrompts',
+      url: 'https://getprompts.me',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://getprompts.me/og-image.jpg'
+      }
+    },
+    ...(image && {
+      image: {
+        '@type': 'ImageObject',
+        url: image
+      }
+    }),
+    ...(wordCount && { wordCount }),
+    ...(keywords && { keywords }),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': 'https://getprompts.me'
+    }
+  }
+
+  return (
+    <Script
+      id="article-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(structuredData),
+      }}
+    />
+  )
+}
+
+export function CreativeWorkStructuredData({ 
+  name, 
+  description, 
+  creator = "GetPrompts",
+  genre = "Digital Art",
+  audience
+}: { 
+  name: string
+  description: string
+  creator?: string
+  genre?: string
+  audience?: string
+}) {
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name,
+    description,
+    creator: {
+      '@type': 'Organization', 
+      name: creator
+    },
+    genre,
+    ...(audience && {
+      audience: {
+        '@type': 'Audience',
+        audienceType: audience
+      }
+    })
+  }
+
+  return (
+    <Script
+      id="creative-work-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(structuredData),
+      }}
+    />
+  )
+}

@@ -2,5 +2,8 @@ export {
   WebApplicationStructuredData, 
   OrganizationStructuredData, 
   ToolStructuredData, 
-  FAQStructuredData 
+  FAQStructuredData,
+  HowToStructuredData,
+  ArticleStructuredData,
+  CreativeWorkStructuredData
 } from './structured-data'
