@@ -18,11 +18,41 @@ export const metadata: Metadata = {
     'stylize parameter',
     'Midjourney styles'
   ],
+  authors: [{ name: 'GetPrompts Team' }],
+  creator: 'GetPrompts',
+  publisher: 'GetPrompts',
   openGraph: {
     title: 'Complete Midjourney Guide: Master AI Art Generation | GetPrompts',
     description: 'Master Midjourney from basics to advanced techniques. Complete guide to prompts, parameters, and professional AI art creation.',
     url: 'https://getprompts.me/guides/midjourney-guide',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Midjourney Guide' }],
+    siteName: 'GetPrompts',
+    images: [{ 
+      url: '/og-image.jpg', 
+      width: 1200, 
+      height: 630, 
+      alt: 'Midjourney Guide',
+      type: 'image/jpeg'
+    }],
+    locale: 'en_US',
+    type: 'article',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Complete Midjourney Guide: Master AI Art Generation | GetPrompts',
+    description: 'Master Midjourney from basics to advanced techniques. Complete guide to prompts, parameters, and professional AI art creation.',
+    images: ['/og-image.jpg'],
+    creator: '@getprompts',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   alternates: {
     canonical: '/guides/midjourney-guide',

@@ -6,11 +6,41 @@ export const metadata: Metadata = {
   title: 'AI Art & Prompt Engineering Guides | GetPrompts',
   description: 'Master AI art creation with our comprehensive guides. Learn prompt engineering, Midjourney techniques, DALL-E tips, and Stable Diffusion best practices.',
   keywords: ['AI art guides', 'prompt engineering tutorial', 'Midjourney guide', 'DALL-E tutorial', 'Stable Diffusion guide', 'AI art tips', 'prompt writing'],
+  authors: [{ name: 'GetPrompts Team' }],
+  creator: 'GetPrompts',
+  publisher: 'GetPrompts',
   openGraph: {
     title: 'AI Art & Prompt Engineering Guides | GetPrompts',
     description: 'Master AI art creation with our comprehensive guides and tutorials.',
     url: 'https://getprompts.me/guides',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'AI Art Guides' }],
+    siteName: 'GetPrompts',
+    images: [{ 
+      url: '/og-image.jpg', 
+      width: 1200, 
+      height: 630, 
+      alt: 'AI Art & Prompt Engineering Guides',
+      type: 'image/jpeg'
+    }],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AI Art & Prompt Engineering Guides | GetPrompts',
+    description: 'Master AI art creation with our comprehensive guides and tutorials.',
+    images: ['/og-image.jpg'],
+    creator: '@getprompts',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   alternates: {
     canonical: '/guides',

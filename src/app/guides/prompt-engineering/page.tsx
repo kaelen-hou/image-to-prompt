@@ -18,11 +18,41 @@ export const metadata: Metadata = {
     'prompt techniques',
     'AI prompt guide'
   ],
+  authors: [{ name: 'GetPrompts Team' }],
+  creator: 'GetPrompts',
+  publisher: 'GetPrompts',
   openGraph: {
     title: 'Prompt Engineering Guide: Master AI Art Prompts | GetPrompts',
     description: 'Complete guide to writing effective AI prompts for stunning art generation.',
     url: 'https://getprompts.me/guides/prompt-engineering',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Prompt Engineering Guide' }],
+    siteName: 'GetPrompts',
+    images: [{ 
+      url: '/og-image.jpg', 
+      width: 1200, 
+      height: 630, 
+      alt: 'Prompt Engineering Guide',
+      type: 'image/jpeg'
+    }],
+    locale: 'en_US',
+    type: 'article',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Prompt Engineering Guide: Master AI Art Prompts | GetPrompts',
+    description: 'Complete guide to writing effective AI prompts for stunning art generation.',
+    images: ['/og-image.jpg'],
+    creator: '@getprompts',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   alternates: {
     canonical: '/guides/prompt-engineering',
