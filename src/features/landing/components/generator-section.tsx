@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card'
 import { Button } from '@/shared/components/ui/button'
+import { PageSection, SectionHeader } from '@/shared/components/layout/page-section'
 import { useRouter } from 'next/navigation'
 import { Camera, ArrowRight } from 'lucide-react'
 
@@ -11,18 +12,13 @@ export default function GeneratorSection() {
   const handleNavigateToGenerator = () => {
     router.push('/image-to-prompt')
   }
+  
   return (
-    <section id="generator" className="py-12 md:py-16 lg:py-20 bg-gray-50">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 md:mb-6">
-            Image Prompt Generator
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            Upload your image and instantly generate detailed prompts that capture 
-            the essence, style, and composition of your artwork.
-          </p>
-        </div>
+    <PageSection id="generator" background="muted">
+      <SectionHeader 
+        title="Image Prompt Generator"
+        subtitle="Upload your image and instantly generate detailed prompts that capture the essence, style, and composition of your artwork."
+      />
 
         <div className="max-w-4xl mx-auto">
           <Card className="mb-8">
@@ -57,19 +53,18 @@ export default function GeneratorSection() {
             </CardContent>
           </Card>
 
-          <div className="text-center mt-6 md:mt-8">
-            <p className="text-gray-600 mb-4 md:mb-6">
-              Ready to transform your images into detailed prompts?
-            </p>
-            <Button 
-              size="lg" 
-              onClick={handleNavigateToGenerator}
-            >
-              Start Generating <ArrowRight size={16} className="ml-1 inline" />
-            </Button>
-          </div>
+        <div className="text-center mt-6 md:mt-8">
+          <p className="text-gray-600 mb-4 md:mb-6">
+            Ready to transform your images into detailed prompts?
+          </p>
+          <Button 
+            size="lg" 
+            onClick={handleNavigateToGenerator}
+          >
+            Start Generating <ArrowRight size={16} className="ml-1 inline" />
+          </Button>
         </div>
       </div>
-    </section>
+    </PageSection>
   )
 }

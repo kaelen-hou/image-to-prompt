@@ -1,4 +1,5 @@
 import { Upload, Search, Sparkles, Copy, Lightbulb, Target, Zap, ArrowRight } from 'lucide-react'
+import { PageSection, SectionHeader } from '@/shared/components/layout/page-section'
 import Link from 'next/link'
 
 export default function HowItWorksSection() {
@@ -30,17 +31,11 @@ export default function HowItWorksSection() {
   ]
 
   return (
-    <section className="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            How to Use Image to Prompt Generator
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Transform any image into a professional AI prompt in just 4 simple steps. 
-            No technical knowledge required.
-          </p>
-        </div>
+    <PageSection background="pinkGradient">
+      <SectionHeader
+        title="How to Use Image to Prompt Generator"
+        subtitle="Transform any image into a professional AI prompt in just 4 simple steps. No technical knowledge required."
+      />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
@@ -128,7 +123,6 @@ export default function HowItWorksSection() {
             </Link>
           </div>
         </div>
-      </div>
-    </section>
+    </PageSection>
   )
 }

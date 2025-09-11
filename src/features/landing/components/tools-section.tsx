@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card'
 import { Button } from '@/shared/components/ui/button'
+import { PageSection, SectionHeader } from '@/shared/components/layout/page-section'
 import { ImageIcon, Sparkles, Palette, BookOpen } from 'lucide-react'
 
 export default function ToolsSection() {
@@ -36,17 +37,11 @@ export default function ToolsSection() {
   ]
 
   return (
-    <section id="tools" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            AI-Powered Image Prompt Tools
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Transform your creative workflow with our suite of intelligent tools designed 
-            to help you generate better AI artwork.
-          </p>
-        </div>
+    <PageSection id="tools" background="white">
+      <SectionHeader
+        title="AI-Powered Image Prompt Tools"
+        subtitle="Transform your creative workflow with our suite of intelligent tools designed to help you generate better AI artwork."
+      />
         
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {tools.map((tool, index) => (
@@ -71,7 +66,6 @@ export default function ToolsSection() {
             </Card>
           ))}
         </div>
-      </div>
-    </section>
+    </PageSection>
   )
 }

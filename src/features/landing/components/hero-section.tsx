@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { Button } from '@/shared/components/ui/button'
+import { PageSection } from '@/shared/components/layout/page-section'
 import { BookOpen } from 'lucide-react'
 
 export default function HeroSection() {
   return (
-    <section className="py-20 bg-gradient-to-br from-violet-50 to-indigo-50">
-      <div className="container mx-auto px-4 text-center">
+    <PageSection background="gradient" className="text-center">
         <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
           Master AI Art Creation
           <br />
@@ -42,7 +42,6 @@ export default function HeroSection() {
             <span>Instant results</span>
           </div>
         </div>
-      </div>
-    </section>
+    </PageSection>
   )
 }

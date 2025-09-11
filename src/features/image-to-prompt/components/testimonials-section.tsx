@@ -1,4 +1,5 @@
 import { Card, CardContent } from '@/shared/components/ui/card'
+import { PageSection, SectionHeader } from '@/shared/components/layout/page-section'
 
 export default function TestimonialsSection() {
   const testimonials = [
@@ -26,17 +27,11 @@ export default function TestimonialsSection() {
   ]
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            What Our Users Say
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Join thousands of artists, designers, and creators who trust our AI-powered 
-            image-to-prompt generator for their creative projects.
-          </p>
-        </div>
+    <PageSection background="muted">
+      <SectionHeader
+        title="What Our Users Say"
+        subtitle="Join thousands of artists, designers, and creators who trust our AI-powered image-to-prompt generator for their creative projects."
+      />
 
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {testimonials.map((testimonial, index) => (
@@ -84,7 +79,6 @@ export default function TestimonialsSection() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+    </PageSection>
   )
 }

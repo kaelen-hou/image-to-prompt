@@ -4,6 +4,7 @@ import { Suspense, lazy, memo } from 'react'
 import { useAuth } from '@/features/auth/client'
 import { HeroShell } from './hero-shell'
 import { Button } from '@/shared/components/ui/button'
+import { PageSection } from '@/shared/components/layout/page-section'
 import { User } from 'lucide-react'
 
 // Lazy load the full interactive component only when needed
@@ -18,9 +19,8 @@ const SignInSection = memo(() => {
   const { signInWithGoogle } = useAuth()
   
   return (
-    <section className="py-20 bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+    <PageSection background="purpleGradient" className="text-center">
+      <div className="mb-12">
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
             Transform Images to AI Prompts
           </h1>
@@ -45,8 +45,7 @@ const SignInSection = memo(() => {
             </Button>
           </div>
         </div>
-      </div>
-    </section>
+    </PageSection>
   )
 })
 

@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/shared/components/ui/accordion'
+import { PageSection, SectionHeader } from '@/shared/components/layout/page-section'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
@@ -47,16 +48,11 @@ export default function FAQSection() {
   ]
 
   return (
-    <section id="faq" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Get answers to common questions about our image prompt tools and services.
-          </p>
-        </div>
+    <PageSection id="faq" background="white">
+      <SectionHeader
+        title="Frequently Asked Questions"
+        subtitle="Get answers to common questions about our image prompt tools and services."
+      />
 
         <div className="max-w-3xl mx-auto">
           <Accordion type="single" collapsible className="space-y-4">
@@ -85,7 +81,6 @@ export default function FAQSection() {
             ))}
           </Accordion>
         </div>
-      </div>
-    </section>
+    </PageSection>
   )
 }

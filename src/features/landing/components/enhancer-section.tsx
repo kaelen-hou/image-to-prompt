@@ -1,26 +1,26 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card'
 import { Button } from '@/shared/components/ui/button'
 import { Checkbox } from '@/shared/components/ui/input'
+import { PageSection } from '@/shared/components/layout/page-section'
 import { Construction, ImageIcon } from 'lucide-react'
 
 export default function EnhancerSection() {
   return (
-    <section id="enhancer" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <h2 className="text-4xl font-bold text-gray-900">
-              Image Enhancer
-            </h2>
-            <span className="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm font-medium rounded-full">
-              Coming Soon
-            </span>
-          </div>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Improve image quality, upscale resolution, and enhance details 
-            with our AI-powered image enhancement tools.
-          </p>
+    <PageSection id="enhancer" background="white">
+      <div className="text-center mb-16">
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <h2 className="text-4xl font-bold text-gray-900">
+            Image Enhancer
+          </h2>
+          <span className="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm font-medium rounded-full">
+            Coming Soon
+          </span>
         </div>
+        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          Improve image quality, upscale resolution, and enhance details 
+          with our AI-powered image enhancement tools.
+        </p>
+      </div>
 
         <div className="max-w-4xl mx-auto">
           <Card className="mb-8 relative overflow-hidden">
@@ -79,7 +79,6 @@ export default function EnhancerSection() {
             </CardContent>
           </Card>
         </div>
-      </div>
-    </section>
+    </PageSection>
   )
 }
