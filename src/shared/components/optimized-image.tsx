@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
+import { cn } from '@/shared/lib/utils'
 
 interface OptimizedImageProps {
   src: string
@@ -56,7 +57,7 @@ export function OptimizedImage({
   if (hasError) {
     return (
       <div 
-        className={`flex items-center justify-center bg-gray-100 text-gray-400 ${className}`}
+        className={cn("flex items-center justify-center bg-gray-100 text-gray-400", className)}
         style={{ width, height }}
       >
         <span>Failed to load image</span>
@@ -65,7 +66,7 @@ export function OptimizedImage({
   }
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={cn("relative overflow-hidden", className)}>
       <Image
         src={src}
         alt={alt}

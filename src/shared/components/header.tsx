@@ -5,12 +5,13 @@ import { useRouter, usePathname } from 'next/navigation'
 import { Button } from '@/shared/components/ui/button'
 import { useAuth } from '@/features/auth/client'
 import { clientLogger } from '@/lib/logger/client'
+import { memo } from 'react'
 
 // Constants to ensure SSR consistency
 const BRAND_NAME = 'GetPrompts'
 const BRAND_CLASSES = 'text-xl font-bold text-violet-600'
 
-export default function Header() {
+function Header() {
   const { user, signOut, loading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
@@ -110,3 +111,5 @@ export default function Header() {
     </header>
   )
 }
+
+export default memo(Header)

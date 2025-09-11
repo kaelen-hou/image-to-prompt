@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ExternalLink } from 'lucide-react'
+import { cn } from '@/shared/lib/utils'
 
 interface InternalLinkProps {
   href: string
@@ -27,7 +28,7 @@ export function InternalLink({
     inline: 'text-violet-600 hover:text-violet-700'
   }
 
-  const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${className}`
+  const combinedClasses = cn(baseClasses, variantClasses[variant], className)
 
   if (external) {
     return (
@@ -70,7 +71,7 @@ export function RelatedLinks({
   className = '' 
 }: RelatedLinksProps) {
   return (
-    <section className={`mt-16 ${className}`}>
+    <section className={cn("mt-16", className)}>
       <h2 className="text-2xl font-bold text-gray-900 mb-8">{title}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((item, index) => (
