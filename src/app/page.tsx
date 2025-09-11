@@ -8,6 +8,12 @@ import {
   InspirationSection,
   FAQSection
 } from '@/features/landing'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'GetPrompts - AI Image to Prompt Generator & Prompt Enhancer',
+  description: 'Transform your images into detailed AI prompts and enhance existing prompts for Midjourney, DALL-E, Stable Diffusion and more. Free online tools for content creators and AI enthusiasts.',
+}
 
 export default function Home() {
   return (

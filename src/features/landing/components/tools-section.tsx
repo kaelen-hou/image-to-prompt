@@ -63,7 +63,8 @@ export default function ToolsSection() {
               <CardContent>
                 <Link href={tool.href}>
                   <Button variant="outline" className="w-full">
-                    {tool.title === "Learning Guides" || tool.title === "Style Explorer" ? "Learn More" : "Try Now"}
+                    {tool.title === "Learning Guides" ? "Browse Guides" : 
+                     tool.title === "Style Explorer" ? "Explore Styles" : "Try Now"}
                   </Button>
                 </Link>
               </CardContent>
