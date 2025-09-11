@@ -28,6 +28,7 @@ function ImageUploaderComponent({
   userUsage 
 }: ImageUploaderProps) {
   const [isDragOver, setIsDragOver] = useState(false)
+  const [imageLoadError, setImageLoadError] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const handleFileSelect = useCallback(async (file: File) => {
@@ -43,6 +44,14 @@ function ImageUploaderComponent({
 
     try {
       const imageUrl = URL.createObjectURL(file)
+      console.log('Created object URL:', imageUrl)
+      console.log('File details:', {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        lastModified: file.lastModified
+      })
+      setImageLoadError(false)
       onImageSelect(imageUrl, file)
     } catch (error) {
       toast.error('Failed to process image')
@@ -118,15 +127,39 @@ function ImageUploaderComponent({
           {selectedImage ? (
             <div className="space-y-4">
               <div className="relative w-full max-w-sm mx-auto group">
-                <Image
-                  src={selectedImage}
-                  alt="Selected"
-                  width={400}
-                  height={300}
-                  className="rounded-xl object-cover shadow-md group-hover:shadow-lg transition-shadow duration-200"
-                  style={{ aspectRatio: '4/3' }}
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 rounded-xl transition-all duration-200" />
+                {!imageLoadError ? (
+                  <Image
+                    src={selectedImage}
+                    alt="Selected"
+                    width={400}
+                    height={300}
+                    className="rounded-xl object-cover shadow-md group-hover:shadow-lg transition-shadow duration-200"
+                    style={{ aspectRatio: '4/3' }}
+                    onLoad={() => {
+                      console.log('Image loaded successfully:', selectedImage)
+                      setImageLoadError(false)
+                    }}
+                    onError={(e) => {
+                      console.error('Image failed to load:', selectedImage, e)
+                      setImageLoadError(true)
+                    }}
+                    unoptimized={true}
+                  />
+                ) : (
+                  <img
+                    src={selectedImage}
+                    alt="Selected"
+                    className="w-full h-auto max-w-[400px] max-h-[300px] object-cover rounded-xl shadow-md group-hover:shadow-lg transition-shadow duration-200"
+                    style={{ aspectRatio: '4/3' }}
+                    onLoad={() => {
+                      console.log('Fallback image loaded successfully:', selectedImage)
+                    }}
+                    onError={(e) => {
+                      console.error('Both Next.js Image and fallback img failed:', selectedImage, e)
+                      toast.error('Unable to display image. Please try a different image.')
+                    }}
+                  />
+                )}
               </div>
               <div className="space-y-2">
                 <p className="text-sm font-medium text-gray-700 truncate">
