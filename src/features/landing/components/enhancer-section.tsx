@@ -28,7 +28,7 @@ export default function EnhancerSection() {
               <div className="text-center">
                 <div className="flex justify-center mb-3"><Construction size={48} className="text-gray-400" /></div>
                 <p className="text-lg font-medium text-gray-700 mb-2">Feature Under Development</p>
-                <p className="text-gray-600">We're working hard to bring you this amazing feature!</p>
+                <p className="text-gray-600">We&apos;re working hard to bring you this amazing feature!</p>
               </div>
             </div>
             <CardHeader>

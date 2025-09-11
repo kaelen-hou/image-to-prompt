@@ -3,7 +3,7 @@
 import { Button } from '@/shared/components/ui/button'
 import { ExampleCard } from '@/shared/components/ui/card-variants'
 import { toast } from 'sonner'
-import { Mountain, Palette, Building, Flower, Waves, Butterfly } from 'lucide-react'
+import { Mountain, Palette, Building, Flower, Waves, Bug } from 'lucide-react'
 
 export default function ImageGallery() {
   const handleCopyPrompt = async (prompt: string) => {
@@ -41,7 +41,7 @@ export default function ImageGallery() {
       prompt: "Powerful ocean waves crashing against rugged cliffs, dramatic seascape, stormy weather, dynamic water motion, coastal landscape, moody atmosphere, high contrast, nature photography"
     },
     {
-      image: <Butterfly size={32} className="text-gray-500" />,
+      image: <Bug size={32} className="text-gray-500" />,
       prompt: "Colorful butterfly with intricate wing patterns, perched on blooming flowers, macro photography, vibrant colors, natural lighting, shallow depth of field, nature close-up, detailed textures"
     }
   ]

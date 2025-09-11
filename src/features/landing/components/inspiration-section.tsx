@@ -43,7 +43,7 @@ export default function InspirationSection() {
     try {
       await navigator.clipboard.writeText(prompt)
       toast.success('Prompt copied to clipboard!')
-    } catch (error) {
+    } catch {
       toast.error('Failed to copy prompt')
     }
   }

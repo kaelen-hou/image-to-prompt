@@ -99,3 +99,4 @@ src/
 - Coze API for AI integration
 - Firebase for authentication and database
 - 项目目录 src 中的文件名必须符合 kebab-case 命名规范
+- 提交代码前一定要确保编译通过
