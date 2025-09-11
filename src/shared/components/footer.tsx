@@ -49,27 +49,27 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-white mb-4">Support</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="#" className="hover:text-white">Help Center</Link></li>
-              <li><Link href="#" className="hover:text-white">Contact Us</Link></li>
-              <li><Link href="#" className="hover:text-white">Privacy Policy</Link></li>
-              <li><Link href="#" className="hover:text-white">Terms of Service</Link></li>
+              <li><Link href="/help" className="hover:text-white">Help Center</Link></li>
+              <li><Link href="/contact" className="hover:text-white">Contact Us</Link></li>
+              <li><Link href="/privacy" className="hover:text-white">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="hover:text-white">Terms of Service</Link></li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-400">
-            © 2024 GetPrompts. All rights reserved.
+            © 2025 GetPrompts. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <Link href="#" className="text-sm text-gray-400 hover:text-white">
+            <Link href="/privacy" className="text-sm text-gray-400 hover:text-white">
               Privacy
             </Link>
-            <Link href="#" className="text-sm text-gray-400 hover:text-white">
+            <Link href="/terms" className="text-sm text-gray-400 hover:text-white">
               Terms
             </Link>
-            <Link href="#" className="text-sm text-gray-400 hover:text-white">
-              Cookies
+            <Link href="/contact" className="text-sm text-gray-400 hover:text-white">
+              Contact
             </Link>
           </div>
         </div>

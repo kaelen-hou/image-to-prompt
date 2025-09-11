@@ -9,6 +9,7 @@ export * from './components/skeletons'
 export * from './components/ui/button'
 export * from './components/ui/card'
 export * from './components/ui/accordion'
+export * from './components/ui/checkbox'
 
 // Hooks
 export * from './hooks'

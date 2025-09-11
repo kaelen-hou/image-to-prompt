@@ -36,6 +36,16 @@ export default function Header() {
     }
   };
 
+  const handleToolsClick = () => {
+    if (pathname === '/') {
+      // On homepage, scroll to tools section
+      document.getElementById('tools')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // On other pages, go to homepage tools section
+      router.push('/#tools');
+    }
+  };
+
   return (
     <header className="border-b">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -53,9 +63,9 @@ export default function Header() {
             <Link href="/guides" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
               Guides
             </Link>
-            <Link href="#tools" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+            <button onClick={handleToolsClick} className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
               Tools
-            </Link>
+            </button>
           </nav>
         </div>
         <div className="flex items-center space-x-4">
