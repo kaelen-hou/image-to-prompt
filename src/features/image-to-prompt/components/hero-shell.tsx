@@ -23,6 +23,7 @@ const HeroShell = memo(() => {
         <div className="grid grid-cols-1 xl:grid-cols-[minmax(320px,400px)_1fr] gap-6 lg:gap-8 xl:gap-10 items-start">
           {/* Left Sidebar Skeleton */}
           <div className="space-y-6">
+            <h2 className="sr-only">Image Processing Tools</h2>
             {/* Image Uploader Placeholder */}
             <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
               <div className="h-64 bg-gray-100 rounded-lg animate-pulse flex items-center justify-center">
@@ -46,6 +47,7 @@ const HeroShell = memo(() => {
 
           {/* Right Content Skeleton */}
           <div className="space-y-6 min-w-0">
+            <h2 className="sr-only">AI Prompt Generation</h2>
             {/* Generation Button Placeholder */}
             <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
               <div className="text-center">

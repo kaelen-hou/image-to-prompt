@@ -291,6 +291,7 @@ export default function ImageToPromptHero() {
         <div className="grid grid-cols-1 xl:grid-cols-[minmax(320px,400px)_1fr] gap-6 lg:gap-8 xl:gap-10 items-start">
           {/* Left Sidebar - Upload & Configuration */}
           <div className="space-y-6">
+            <h2 className="sr-only">Image Processing Tools</h2>
             <ImageUploader
               selectedImage={selectedImage}
               selectedFile={selectedFile}
@@ -315,6 +316,7 @@ export default function ImageToPromptHero() {
 
           {/* Right Content - Generation & Results */}
           <div className="space-y-6 min-w-0">
+            <h2 className="sr-only">AI Prompt Generation</h2>
             {/* Generation Button */}
             <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
               <div className="text-center">
