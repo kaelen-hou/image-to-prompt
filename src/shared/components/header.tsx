@@ -5,6 +5,10 @@ import { useRouter, usePathname } from 'next/navigation'
 import { Button } from '@/shared/components/ui/button'
 import { useAuth } from '@/features/auth/client'
 
+// Constants to ensure SSR consistency
+const BRAND_NAME = 'GetPrompts'
+const BRAND_CLASSES = 'text-xl font-bold text-violet-600'
+
 export default function Header() {
   const { user, signOut, loading } = useAuth();
   const router = useRouter();
@@ -36,8 +40,8 @@ export default function Header() {
     <header className="border-b">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center space-x-8">
-          <Link href="/" className="text-xl font-bold text-violet-600">
-            GetPrompts
+          <Link href="/" className={BRAND_CLASSES}>
+            {BRAND_NAME}
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
             <Link href="/image-to-prompt" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">
